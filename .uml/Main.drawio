@@ -1,0 +1,205 @@
+<mxfile host="65bd71144e">
+    <diagram id="2DVQ91olrTAiTI7nTuvV" name="Page-1">
+        <mxGraphModel dx="2625" dy="506" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="DeadRain" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-790" y="40" width="160" height="86" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="+&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+                    <mxGeometry y="26" width="160" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="2">
+                    <mxGeometry y="52" width="160" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="+" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+                    <mxGeometry y="60" width="160" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="Character" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="-600" y="80" width="1640" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="Enemy" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="19">
+                    <mxGeometry x="1360" y="40" width="240" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="EnemyCharacter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="20">
+                    <mxGeometry x="40" y="42" width="160" height="86" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="+&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="21">
+                    <mxGeometry y="26" width="160" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="21">
+                    <mxGeometry y="52" width="160" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="+" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="21">
+                    <mxGeometry y="60" width="160" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Player" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="19">
+                    <mxGeometry x="360" y="40" width="960" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="PlayerCharacter : BaseCharacter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="25">
+                    <mxGeometry x="40" y="42" width="320" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="+ ADRPlayerCharacter()&lt;div&gt;+ Tick(float) : void&lt;/div&gt;&lt;div&gt;= BeginPlay() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;= TickInteractionCheck() : ADRInteractableActor*&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;+ GetCurrentInteractable() : ADRInteractableActor*&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="26">
+                    <mxGeometry y="26" width="320" height="104" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="26">
+                    <mxGeometry y="130" width="320" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="+ Camera : UCameraComponent*&lt;div&gt;+ SpringArm : USpringArmComponent*&lt;/div&gt;&lt;div&gt;= CurrentInteractable : ADRInteractableActor*&lt;/div&gt;&lt;div&gt;= InteractionDistance : float&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="26">
+                    <mxGeometry y="138" width="320" height="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="ADRPlayerController: APlayerController" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="25">
+                    <mxGeometry x="680" y="42" width="240" height="114" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="+ ADRPlayerController()&lt;div&gt;+ Tick(float) : void&lt;/div&gt;&lt;div&gt;= BeginPlay() : void&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="34">
+                    <mxGeometry y="26" width="240" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="34">
+                    <mxGeometry y="80" width="240" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="+&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="34">
+                    <mxGeometry y="88" width="240" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="ADRPlayerState : APlayerState" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="25">
+                    <mxGeometry x="400" y="42" width="240" height="114" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="+ ADRPlayerState()&lt;div&gt;+ Tick(float) : void&lt;/div&gt;&lt;div&gt;= BeginPlay() : void&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="47">
+                    <mxGeometry y="26" width="240" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="47">
+                    <mxGeometry y="80" width="240" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="+&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="47">
+                    <mxGeometry y="88" width="240" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="BaseCharacter : ACharacter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="19">
+                    <mxGeometry x="40" y="40" width="270" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="+ ADRBaseCharacter()&lt;div&gt;+ Tick() : void&lt;/div&gt;&lt;div&gt;= BeginPlay() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ EquipWeapon(ADRWeapon*) : void&lt;/div&gt;&lt;div&gt;+ UnEquipWeapon() : void&lt;/div&gt;&lt;div&gt;+ ActivateWeaponPrimary() : void&lt;/div&gt;&lt;div&gt;&lt;div&gt;+ ActivateWeaponSecondary() : void&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;+ ActivateWeaponTertiary() : void&lt;/div&gt;&lt;/div&gt;&lt;div&gt;+ ApplyDamageToTarget(AActor*) : void&lt;/div&gt;&lt;div&gt;+ ReceiveDamage(float, AActor) : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;strokeWidth=3;" vertex="1" parent="7">
+                    <mxGeometry y="26" width="270" height="184" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="7">
+                    <mxGeometry y="210" width="270" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;= CurrentWeapon : ADRWeapon*&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;= MaxHealth : float&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;= CurrentHealth : float&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="7">
+                    <mxGeometry y="218" width="270" height="102" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" value="Interaction" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="-600" y="520" width="1640" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="ADRItem : ADRInteractableActor" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="68">
+                    <mxGeometry x="880" y="40" width="360" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="65" value="&lt;div&gt;+ ADRItem()&lt;/div&gt;&lt;div&gt;= BeginPlay() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;+ InteractPress(ADRBaseCharacter) : void&lt;/div&gt;&lt;div&gt;+ InteractHold(ADRBaseCharacter) : void&lt;/div&gt;&lt;div&gt;+ OnPrePickup() : void&lt;/div&gt;&lt;/div&gt;&lt;div&gt;+ OnPostPickup() : void&lt;/div&gt;&lt;div&gt;+ OnPreDrop() : void&lt;/div&gt;&lt;div&gt;+ OnPostDrop() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ ApplyItem(ADRBaseCharacter*) : void&lt;/div&gt;&lt;div&gt;+ IncreaseCount(int32) : void&lt;/div&gt;&lt;div&gt;+ DecreaseCount(int32) : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="64">
+                    <mxGeometry y="26" width="360" height="214" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="" style="line;strokeWidth=2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="64">
+                    <mxGeometry y="240" width="360" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" value="= Count : int32&lt;div&gt;= bIsStackable : bool&lt;/div&gt;&lt;div&gt;= bIsConsumable : bool&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="64">
+                    <mxGeometry y="248" width="360" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="ADRInteractableActor : AActor &amp;amp; IDRInteractionInterface" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="68">
+                    <mxGeometry x="440" y="40" width="380" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="+ ADRInteractableActor()&lt;div&gt;= BeginPlay() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ InteractPress(ADRBaseCharacter) : void : [BlueprintNativeEvent]&lt;/div&gt;&lt;div&gt;+ InteractHold(ADRBaseCharacter) : void : [BlueprintNativeEvent]&lt;/div&gt;&lt;div&gt;+ IsInteractable() : bool&lt;/div&gt;&lt;div&gt;+ ShowInteractionPrompt(APlayerController*, bool) : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="51">
+                    <mxGeometry y="26" width="380" height="114" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="line;strokeWidth=2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="51">
+                    <mxGeometry y="140" width="380" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="= bIsInteractable : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="51">
+                    <mxGeometry y="148" width="380" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="IDRInteractionInterface" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="68">
+                    <mxGeometry x="40" y="40" width="360" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;+ InteractPress(ADRBaseCharacter) : void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ InteractHold(ADRBaseCharacter) : void&lt;/div&gt;&lt;div&gt;+ IsInteractable() : bool&lt;/div&gt;&lt;div&gt;+ ShowInteractionPrompt(APlayerController*, bool) : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="55">
+                    <mxGeometry y="26" width="360" height="94" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="UDRInventoryComponent : UActorComponent" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="68">
+                    <mxGeometry x="1280" y="40" width="320" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="&lt;div&gt;+ UDRInventoryComponent()&lt;/div&gt;&lt;div&gt;= BeginPlay() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ AddItem(ADRItem) : void&lt;/div&gt;&lt;div&gt;+ RemoveItem(ADRItem) : bool&lt;/div&gt;&lt;div&gt;+ hadItem(ADRItem) : bool&lt;/div&gt;&lt;div&gt;+ GetInventory() : TArray&amp;lt;ADRItem*&amp;gt;&amp;amp; const&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="59">
+                    <mxGeometry y="26" width="320" height="114" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="" style="line;strokeWidth=2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="59">
+                    <mxGeometry y="140" width="320" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="= Items : TArray&amp;lt;ADRItem*&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="59">
+                    <mxGeometry y="148" width="320" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" value="Weapon" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="-600" y="960" width="1640" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="ADRWeapon : AActor" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="69">
+                    <mxGeometry x="40" y="40" width="280" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" value="+ ADRWeapon()&lt;div&gt;= BeginPlay() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ Primary() : void&lt;/div&gt;&lt;div&gt;+ Seconday() : void&lt;/div&gt;&lt;div&gt;+ Tertiary() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="70">
+                    <mxGeometry y="26" width="280" height="114" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="70">
+                    <mxGeometry y="140" width="280" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="= WeaponMesh : UStaticMeshComponent*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="70">
+                    <mxGeometry y="148" width="280" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="Gun" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="69">
+                    <mxGeometry x="360" y="40" width="640" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" value="ADRGun : ADRWeapon" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="74">
+                    <mxGeometry x="40" y="40" width="240" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="+ ADRGun()&lt;div&gt;= BeginPlay() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ Primary() : void&lt;/div&gt;&lt;div&gt;+ Seconday() : void&lt;/div&gt;&lt;div&gt;+ Tertiary() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="75">
+                    <mxGeometry y="26" width="240" height="114" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="75">
+                    <mxGeometry y="140" width="240" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="78" value="= MuzzleLocation : USceneComponent*&lt;div&gt;= BulletClass : TSubclassOf&amp;lt;ADRBullet&amp;gt;&lt;/div&gt;&lt;div&gt;= MaxMagSize : int&lt;/div&gt;&lt;div&gt;= CurrentMagSize : int&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="75">
+                    <mxGeometry y="148" width="240" height="92" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="ADRBullet : AActor" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="74">
+                    <mxGeometry x="320" y="40" width="280" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="&lt;div&gt;+ ADRBullet()&lt;/div&gt;&lt;div&gt;= OnCollisionBegin(...) : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="79">
+                    <mxGeometry y="26" width="280" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="81" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="79">
+                    <mxGeometry y="80" width="280" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" value="= Mesh : UStaticMeshCompoenent*&lt;div&gt;= CollisionCapsule : UCapsuleComponent*&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="79">
+                    <mxGeometry y="88" width="280" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="83" value="Melee" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="69">
+                    <mxGeometry x="1040" y="40" width="560" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" value="ADRMelee : ADRWeapon" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="83">
+                    <mxGeometry x="40" y="40" width="240" height="158" as="geometry"/>
+                </mxCell>
+                <mxCell id="85" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="84">
+                    <mxGeometry y="26" width="240" height="124" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="84">
+                    <mxGeometry y="150" width="240" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="105" value="Interact" style="swimlane;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" vertex="1" parent="1">
+                    <mxGeometry x="-1410" y="60" width="580" height="350" as="geometry"/>
+                </mxCell>
+                <mxCell id="110" value="Player Hovers over a InteractableActor : ADRPlayerCharacter" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="105">
+                    <mxGeometry x="40" y="42" width="510" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="111" value="Self::Tick()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="110">
+                    <mxGeometry y="30" width="510" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="112" value="Self::CheckForInteractable()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="110">
+                    <mxGeometry y="60" width="510" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="113" value="Item 3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="110">
+                    <mxGeometry y="90" width="510" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
