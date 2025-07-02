@@ -12,12 +12,13 @@
 #pragma endregion
 
 #pragma region INTERFACE
-    void ADRInteractableActor::InteractPress(ADRBaseCharacter* Interactor){
+    void ADRInteractableActor::InteractPress_Implementation(ADRBaseCharacter* Interactor){
+    }
+
+    void ADRInteractableActor::InteractHold_Implementation(ADRBaseCharacter* Interactor){
         
     }
-    void ADRInteractableActor::InteractHold(ADRBaseCharacter* Interactor){
-        
-    }
+    
     bool ADRInteractableActor::IsInteractable()const {
         return bIsInteractable;
     }

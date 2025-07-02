@@ -41,21 +41,23 @@
             Params
         );
 
+        DrawDebugLine(
+            GetWorld(),
+            Start,
+            End,
+            bHit ? FColor::Green : FColor::Red, // green if hit, red if not
+            false,      // don't persist (set true to keep it on screen)
+            0.1f,       // duration in seconds (short if called every tick)
+            0,          // depth priority
+            1.5f        // line thickness
+        );
+
         if (bHit){
             if (ADRInteractableActor* Interactable = Cast<ADRInteractableActor>(HitResult.GetActor())){
                 if (Interactable->IsInteractable()){
-                    UE_LOG(LogTemp, Warning, TEXT("Hit an interactable actor: %s"), *Interactable->GetName());
                     CurrentInteractable = Interactable;
                 }
             }
         }
     }
-
-    void ADRPlayerCharacter::InputInteract() {
-        if (CurrentInteractable){
-            CurrentInteractable->InteractPress(this);
-            UE_LOG(LogTemp, Warning, TEXT("Interacted with: %s"), *CurrentInteractable->GetName());
-        }
-    }
-
 #pragma endregion

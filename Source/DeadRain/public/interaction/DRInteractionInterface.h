@@ -18,9 +18,9 @@ class DEADRAIN_API IDRInteractionInterface
 
 #pragma region INTERFACE
     public:
-        virtual void InteractPress(ADRBaseCharacter* Interactor) = 0;
-        virtual void InteractHold(ADRBaseCharacter* Interactor) = 0;
-        virtual bool IsInteractable() const = 0;
-        virtual void ShowInteractionPrompt(APlayerController* PlayerController, bool Show) = 0;
+        virtual void InteractPress(ADRBaseCharacter* Interactor) {}
+        virtual void InteractHold(ADRBaseCharacter* Interactor) {}
+        virtual bool IsInteractable() const { return true; }
+        virtual void ShowInteractionPrompt(APlayerController* PlayerController, bool Show) {}
 #pragma endregion
 };
