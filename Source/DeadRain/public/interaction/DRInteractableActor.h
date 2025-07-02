@@ -15,6 +15,7 @@ class DEADRAIN_API ADRInteractableActor : public AActor, public IDRInteractionIn
 #pragma region CORE
     public:
         ADRInteractableActor();
+        
 
     protected:
         virtual void BeginPlay() override;
@@ -23,13 +24,8 @@ class DEADRAIN_API ADRInteractableActor : public AActor, public IDRInteractionIn
 
 #pragma region INTERFACE
     public:
-        UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-        void InteractPress(ADRBaseCharacter* Interactor);
-        void InteractPress_Implementation(ADRBaseCharacter* Interactor);
-
-        UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-        void InteractHold(ADRBaseCharacter* Interactor);
-        void InteractHold_Implementation(ADRBaseCharacter* Interactor);
+        virtual void InteractPress_Implementation(ADRBaseCharacter* Interactor);
+        virtual void InteractHold_Implementation(ADRBaseCharacter* Interactor);
         
         virtual bool IsInteractable() const;
         virtual void ShowInteractionPrompt(APlayerController* PlayerController, bool Show);
