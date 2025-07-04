@@ -1,7 +1,8 @@
 #include "character/DRBaseCharacter.h"
 #include "weapon/DRWeapon.h"
-
-
+#include "gas/attribute/DRCharacterSet.h"
+#include "gas/DRAbilitySystemComponent.h"
+#include "GameplayEffect.h"
 #pragma region CORE
     ADRBaseCharacter::ADRBaseCharacter(){
 
@@ -62,5 +63,56 @@
             CurrentHealth = 0;
         }
     }
+
+#pragma endregion
+
+#pragma region GAS
+
+UAbilitySystemComponent* ADRBaseCharacter::GetAbilitySystemComponent() const{
+    return AbilitySystemComponent.Get();
+}
+
+float ADRBaseCharacter::GetCurrentHealth() const{
+    return 0.0;
+}
+float ADRBaseCharacter::GetMaxHealth() const{
+    return  0.0;
+}
+
+void ADRBaseCharacter::InitializeGAS(){
+    if(GetLocalRole() != ROLE_Authority)
+        return;
+    if (!AbilitySystemComponent.IsValid())
+        return;
+
+    // Add Startup Attributes
+    if (!StartupAttributes)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s() Missing DefaultAttributes for %s. Please fill in the character's Blueprint."), *FString(__FUNCTION__), *GetName());
+		return;
+	}
+	// Can run on Server and Client
+	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+	FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(StartupAttributes, 1, EffectContext);
+	if (NewHandle.IsValid())
+	{
+		FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent.Get());
+	}
+        
+    // Add Startup Effects
+	EffectContext.AddSourceObject(this);
+	for (TSubclassOf<UGameplayEffect> GameplayEffect : StartupEffects)
+	{
+		NewHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect, 1, EffectContext);
+		if (NewHandle.IsValid())
+		{
+			FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent.Get());
+		}
+	}
+
+
+}
+
 
 #pragma endregion

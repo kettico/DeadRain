@@ -2,6 +2,11 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "interaction/DRInteractableActor.h"
+#include "character/player/DRPlayerState.h"
+#include "character/player/DRPlayerController.h"
+
+#include "gas/attribute/DRCharacterSet.h"
+#include "gas/DRAbilitySystemComponent.h"
 
 #pragma region CORE
     ADRPlayerCharacter::ADRPlayerCharacter(){
@@ -19,6 +24,18 @@
 
     void ADRPlayerCharacter::BeginPlay(){
         Super::BeginPlay();
+    }
+
+    void ADRPlayerCharacter::PossessedBy(AController* NewController) {
+        Super::PossessedBy(NewController);
+
+        InitializeGAS();
+    }
+
+    void ADRPlayerCharacter::OnRep_PlayerState(){
+        Super::OnRep_PlayerState();
+
+        InitializeGAS();
     }
 
 #pragma endregion
@@ -57,6 +74,21 @@
                 if (Interactable->IsInteractable()){
                     CurrentInteractable = Interactable;
                 }
+            }
+        }
+    }
+
+    void ADRPlayerCharacter::InitializeGAS(){
+        if (ADRPlayerState* PS = GetPlayerState<ADRPlayerState>()){
+            AbilitySystemComponent = Cast<UDRAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+            PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, this);
+            CharacterSet = PS->GetCharacterSet();
+
+            // startup attributes & effects
+            Super::InitializeGAS();
+
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetController())) {
+                
             }
         }
     }

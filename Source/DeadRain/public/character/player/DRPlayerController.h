@@ -4,10 +4,8 @@
 #include "GameFramework/PlayerController.h"
 #include "DRPlayerController.generated.h"
 
-/**
- * ADRPlayerController
- * A basic player controller for the SpaceGame.
- */
+class UDRHUDWidget;
+
 UCLASS()
 class DEADRAIN_API ADRPlayerController : public APlayerController
 {
@@ -20,6 +18,27 @@ class DEADRAIN_API ADRPlayerController : public APlayerController
 
     protected:
         virtual void BeginPlay() override;
+
+        virtual void OnPossess(APawn* InPawn) override;
+
+	    virtual void OnRep_PlayerState() override;
         
+#pragma endregion
+
+#pragma region - UI
+
+public:
+    void InitializeHUD();
+    UDRHUDWidget* GetHUD() const;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "DeadRain|UI")
+	TSubclassOf<UDRHUDWidget> HUDClass;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "DeadRain|UI")
+	UDRHUDWidget* HUD;
+
+
+
+protected:
+
+ 
 #pragma endregion
 };

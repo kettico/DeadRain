@@ -21,8 +21,11 @@ class DEADRAIN_API ADRPlayerCharacter : public ADRBaseCharacter
         ADRPlayerCharacter();
         virtual void Tick(float DeltaTime) override;
 
+        virtual void PossessedBy(AController* NewController) override;
+
     protected:
         virtual void BeginPlay() override;
+        virtual void OnRep_PlayerState() override;
 
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
         UCameraComponent* Camera;
@@ -44,6 +47,8 @@ class DEADRAIN_API ADRPlayerCharacter : public ADRBaseCharacter
         
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
         float InteractionDistance = 200.0f; // Distance to check for interactable actors
+
+        virtual void InitializeGAS() override;
 
 #pragma endregion
 

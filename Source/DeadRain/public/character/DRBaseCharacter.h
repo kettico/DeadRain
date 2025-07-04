@@ -2,13 +2,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
+
 #include "DRBaseCharacter.generated.h"
+
+class UAbilitySystemComponent;
+class UDRAbilitySystemComponent;
+class UDRCharacterSet;
+class UGameplayEffect;
 
 class UDRItemManager;
 class ADRItem;
 class ADRWeapon;
 UCLASS()
-class DEADRAIN_API ADRBaseCharacter : public ACharacter
+class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
     GENERATED_BODY()
 
@@ -57,6 +64,29 @@ class DEADRAIN_API ADRBaseCharacter : public ACharacter
         UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "STATS")
         float CurrentHealth = 100.f;
 
+
+#pragma endregion
+
+#pragma region GAS
+
+public:
+    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+	float GetCurrentHealth() const;
+	UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+	float GetMaxHealth() const;
+
+protected:
+    TWeakObjectPtr<UDRAbilitySystemComponent> AbilitySystemComponent;
+	TWeakObjectPtr<UDRCharacterSet> CharacterSet;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
+	TSubclassOf<UGameplayEffect> StartupAttributes;
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
+	TArray<TSubclassOf<UGameplayEffect>> StartupEffects;
+
+    virtual void InitializeGAS();
 
 #pragma endregion
     
