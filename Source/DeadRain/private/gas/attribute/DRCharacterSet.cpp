@@ -24,7 +24,7 @@ void UDRCharacterSet::PreAttributeChange(const FGameplayAttribute& Attribute, fl
 
     // On Max Change, adjust Current so it is the same % 
     if (Attribute == GetMaxHealthAttribute()) {
-        AdjustAttributeForMaxChange(CurrentHealth, MaxHealth, NewValue, GetCurrentHealthAttribute());
+        //AdjustAttributeForMaxChange(CurrentHealth, MaxHealth, NewValue, GetCurrentHealthAttribute());
     } 
 }
 
@@ -34,7 +34,8 @@ void UDRCharacterSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 
     //TODO:
 }
-    
+
+// THIS DOESNT WORK
 void UDRCharacterSet::AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty){
 	UAbilitySystemComponent* AbilityComp = GetOwningAbilitySystemComponent();
 	const float CurrentMaxValue = MaxAttribute.GetCurrentValue();

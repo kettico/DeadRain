@@ -1,5 +1,6 @@
 #include "character/player/DRPlayerController.h"
 #include "ui/character/DRHUDWidget.h"
+#include "character/player/DRPlayerState.h"
 
 #pragma region CORE
     ADRPlayerController::ADRPlayerController(){
@@ -42,10 +43,16 @@
         if (!HUD)
             HUD = CreateWidget<UDRHUDWidget>(this, HUDClass);
 
+        
         if(HUD){
             HUD->AddToViewport();
-            HUD->SetCurrentHealth(60);
-            HUD->SetMaxHealth(100);
+
+            if (ADRPlayerState* PS = GetPlayerState<ADRPlayerState>()){
+                HUD->SetCurrentHealth(PS->GetCurrentHealth());
+                HUD->SetMaxHealth(PS->GetMaxHealth());
+
+                UE_LOG(LogTemp, Error, TEXT("Current Health: %f"), PS->GetCurrentHealth());
+            }
         }
     }
 

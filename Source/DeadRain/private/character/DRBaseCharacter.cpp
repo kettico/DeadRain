@@ -73,16 +73,20 @@ UAbilitySystemComponent* ADRBaseCharacter::GetAbilitySystemComponent() const{
 }
 
 float ADRBaseCharacter::GetCurrentHealth() const{
-    return 0.0;
+    if (CharacterSet.IsValid()) {
+    float Health = CharacterSet->GetCurrentHealth(); // or CharacterSet.Get()->GetCurrentHealth();
+    }
+    return -1.0f; // Return -1 if not valid
 }
 float ADRBaseCharacter::GetMaxHealth() const{
-    return  0.0;
+    if (CharacterSet.IsValid()) {
+        return CharacterSet->GetMaxHealth();
+    }
+    return -1.0f; // Return -1 if not valid
 }
 
 void ADRBaseCharacter::InitializeGAS(){
-    if(GetLocalRole() != ROLE_Authority)
-        return;
-    if (!AbilitySystemComponent.IsValid())
+    if(GetLocalRole() != ROLE_Authority || !AbilitySystemComponent.IsValid())
         return;
 
     // Add Startup Attributes

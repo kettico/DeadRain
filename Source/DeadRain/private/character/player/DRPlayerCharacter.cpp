@@ -58,6 +58,7 @@
             Params
         );
 
+        /*
         DrawDebugLine(
             GetWorld(),
             Start,
@@ -68,6 +69,7 @@
             0,          // depth priority
             1.5f        // line thickness
         );
+        */
 
         if (bHit){
             if (ADRInteractableActor* Interactable = Cast<ADRInteractableActor>(HitResult.GetActor())){

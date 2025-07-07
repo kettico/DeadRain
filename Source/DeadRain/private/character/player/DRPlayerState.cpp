@@ -18,6 +18,12 @@
 
     void ADRPlayerState::BeginPlay(){
         Super::BeginPlay();
+
+        if (AbilitySystemComponent){
+            CurrentHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetCurrentHealthAttribute()).AddUObject(this, &ADRPlayerState::CurrentHealthChanged);
+            MaxHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetMaxHealthAttribute()).AddUObject(this, &ADRPlayerState::MaxHealthChanged);
+            HealthRegenChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetHealthRegenAttribute()).AddUObject(this, &ADRPlayerState::HealthRegenChanged);
+        }
     }
 #pragma endregion
 
@@ -53,6 +59,7 @@
             if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
                 if (UDRHUDWidget* HUD = PC->GetHUD()){
                     HUD->SetCurrentHealth(CurrentHealth);
+                    UE_LOG(LogTemp, Error, TEXT("HEALTH CHANGED CALLED"));
                 }
             }
         }
