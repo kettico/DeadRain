@@ -6,7 +6,7 @@
 #include "DRInteractableActor.generated.h"
 
 class ADRBaseCharacter;
-
+class UDRInteractionPrompt;
 UCLASS()
 class DEADRAIN_API ADRInteractableActor : public AActor, public IDRInteractionInterface
 {

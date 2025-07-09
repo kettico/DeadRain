@@ -8,6 +8,8 @@
 #include "gas/attribute/DRCharacterSet.h"
 #include "gas/DRAbilitySystemComponent.h"
 
+#include "ui/character/DRHUDWidget.h"
+
 #pragma region CORE
     ADRPlayerCharacter::ADRPlayerCharacter(){
         SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
@@ -71,12 +73,23 @@
         );
         */
 
-        if (bHit){
-            if (ADRInteractableActor* Interactable = Cast<ADRInteractableActor>(HitResult.GetActor())){
-                if (Interactable->IsInteractable()){
-                    CurrentInteractable = Interactable;
+        ADRInteractableActor* NewInteractable = nullptr;
+        if (bHit) {
+            if (ADRInteractableActor* Interactable = Cast<ADRInteractableActor>(HitResult.GetActor())) {
+                if (Interactable->IsInteractable()) {
+                    NewInteractable = Interactable;
                 }
             }
+        }
+
+
+        if (NewInteractable != CurrentInteractable) {
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetController())) {
+                if (UDRHUDWidget* HUD = PC->GetHUD()) {
+                    HUD->SetCurrentInteractable(NewInteractable);
+                }
+            }
+            CurrentInteractable = NewInteractable;
         }
     }
 

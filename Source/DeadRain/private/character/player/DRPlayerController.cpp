@@ -50,8 +50,6 @@
             if (ADRPlayerState* PS = GetPlayerState<ADRPlayerState>()){
                 HUD->SetCurrentHealth(PS->GetCurrentHealth());
                 HUD->SetMaxHealth(PS->GetMaxHealth());
-
-                UE_LOG(LogTemp, Error, TEXT("Current Health: %f"), PS->GetCurrentHealth());
             }
         }
     }

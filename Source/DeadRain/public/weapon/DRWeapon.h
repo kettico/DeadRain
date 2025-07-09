@@ -18,6 +18,8 @@ class DEADRAIN_API ADRWeapon : public ADRInteractableActor
 public:    
     ADRWeapon();
 
+    UStaticMeshComponent* GetWeaponMesh() const { return WeaponMesh; }
+
 protected:
     virtual void BeginPlay() override;
 
@@ -36,11 +38,11 @@ protected:
 
 #pragma region ATTACKS
 public:
-    UFUNCTION()
+    UFUNCTION(BlueprintCallable)
     virtual void Primary();
-    UFUNCTION()
+    UFUNCTION(BlueprintCallable)
     virtual void Secondary();
-    UFUNCTION()
+    UFUNCTION(BlueprintCallable)
     virtual void Tertiary();
 #pragma endregion
     

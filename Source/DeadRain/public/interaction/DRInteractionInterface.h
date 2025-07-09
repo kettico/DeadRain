@@ -22,11 +22,9 @@ class DEADRAIN_API IDRInteractionInterface
 
         UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
         void InteractPress(ADRBaseCharacter* Interactor);
-        void InteractPress_Implementation(ADRBaseCharacter* Interactor){}
 
         UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
         void InteractHold(ADRBaseCharacter* Interactor);
-        void InteractHold_Implementation(ADRBaseCharacter* Interactor){}
         
     virtual bool IsInteractable() const = 0;
     virtual void ShowInteractionPrompt(APlayerController* PlayerController, bool Show) = 0;

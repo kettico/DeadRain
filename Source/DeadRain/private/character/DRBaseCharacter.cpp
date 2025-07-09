@@ -20,8 +20,13 @@
 #pragma region WEAPON
     void ADRBaseCharacter::EquipWeapon(ADRWeapon* NewWeapon){
         if (!NewWeapon) return;
-
         if (CurrentWeapon) UnEquipWeapon();
+
+        if (UStaticMeshComponent* WeaponMesh = NewWeapon->GetWeaponMesh()){
+            WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            WeaponMesh->AttachToComponent(this->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, TEXT("hand_r_socket"));
+        }
+
         CurrentWeapon = NewWeapon;
     }
 

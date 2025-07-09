@@ -16,11 +16,11 @@
 
 
 void ADRWeapon::InteractPress_Implementation(ADRBaseCharacter* Interactor){
-    UE_LOG(LogTemp, Warning, TEXT("Weapon Interact Pressed by %s"), *Interactor->GetName());
+    Interactor->EquipWeapon(this);
 }
 
 void ADRWeapon::InteractHold_Implementation(ADRBaseCharacter* Interactor){
-    UE_LOG(LogTemp, Warning, TEXT("Weapon Interact Held by %s"), *Interactor->GetName());
+    Interactor->EquipWeapon(this);
 }
 
 #pragma region ATTACKS

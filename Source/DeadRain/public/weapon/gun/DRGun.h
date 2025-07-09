@@ -18,15 +18,15 @@ class DEADRAIN_API ADRGun : public ADRWeapon
     protected:
         virtual void BeginPlay() override;
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
         USceneComponent* MuzzleLocation; 
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
         TSubclassOf<ADRBullet> BulletClass;
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
         int MaxMagSize = 30;
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
         int CurrentMagSize = 30;
         
 
@@ -34,6 +34,8 @@ class DEADRAIN_API ADRGun : public ADRWeapon
 
 #pragma region ATTACKS
     public:
+
+    
         virtual void Primary() override;
         virtual void Secondary() override;
         virtual void Tertiary() override; 

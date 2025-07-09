@@ -47,6 +47,5 @@
     void ADRGun::Tertiary()
     {
         CurrentMagSize = MaxMagSize;
-        UE_LOG(LogTemp, Warning, TEXT("Reloading %s"), *GetName());
     }
 #pragma endregion

@@ -13,7 +13,7 @@
 
         CharacterSet = CreateDefaultSubobject<UDRCharacterSet>(TEXT("CharacterSet"));
 
-        NetUpdateFrequency = 100.0f;
+        SetNetUpdateFrequency(100.0f);
     }
 
     void ADRPlayerState::BeginPlay(){
@@ -59,7 +59,6 @@
             if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
                 if (UDRHUDWidget* HUD = PC->GetHUD()){
                     HUD->SetCurrentHealth(CurrentHealth);
-                    UE_LOG(LogTemp, Error, TEXT("HEALTH CHANGED CALLED"));
                 }
             }
         }

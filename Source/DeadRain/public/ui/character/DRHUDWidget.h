@@ -4,6 +4,8 @@
 #include "Blueprint/UserWidget.h"
 #include "DRHUDWidget.generated.h"
 
+class ADRInteractableActor;
+
 UCLASS()
 class DEADRAIN_API UDRHUDWidget : public UUserWidget
 {
@@ -15,6 +17,10 @@ public:
     UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetMaxHealth(float MaxHealth);
 
+    UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+    void SetCurrentInteractable(ADRInteractableActor* IA);
+
 protected:
+
 
 };

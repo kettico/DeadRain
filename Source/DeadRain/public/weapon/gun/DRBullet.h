@@ -23,6 +23,8 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UStaticMeshComponent* Mesh;
 
+   
+
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UCapsuleComponent* CollisionCapsule;
 
