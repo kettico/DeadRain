@@ -83,6 +83,7 @@
         }
 
         void ADRPlayerState::CurrentMoneyChanged(const FOnAttributeChangeData& Data){
+            UE_LOG( LogTemp, Warning, TEXT("CurrentMoneyChanged: %f"), Data.NewValue);
             float CurrentMoney = Data.NewValue;
             if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
                 if (UDRHUDWidget* HUD = PC->GetHUD()){
