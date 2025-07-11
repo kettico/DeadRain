@@ -18,6 +18,9 @@ public:
 	void SetMaxHealth(float MaxHealth);
 
     UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SetCurrentMoney(float CurrentMoney);
+
+    UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
     void SetCurrentInteractable(ADRInteractableActor* IA);
 
 protected:

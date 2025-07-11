@@ -4,6 +4,7 @@
 
 #pragma region CORE
     ADRWeapon::ADRWeapon(){
+        RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
         WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
         WeaponMesh->SetupAttachment(RootComponent);
     }
@@ -25,7 +26,7 @@ void ADRWeapon::InteractHold_Implementation(ADRBaseCharacter* Interactor){
 
 #pragma region ATTACKS
     void ADRWeapon::Primary(){
-        //
+        UE_LOG(LogTemp, Warning, TEXT("Primary attack executed on %s"), *GetName());
     }
 
     void ADRWeapon::Secondary(){

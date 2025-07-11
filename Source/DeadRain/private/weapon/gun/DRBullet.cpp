@@ -5,12 +5,16 @@
 
 #pragma region CORE
     ADRBullet::ADRBullet(){
+        RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
+       
         Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BulletMesh"));
         Mesh->SetupAttachment(RootComponent);
 
         CollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
         CollisionCapsule->InitCapsuleSize(5.0f, 10.0f);
         CollisionCapsule->SetupAttachment(Mesh);
+
+         PrimaryActorTick.bCanEverTick = true;
     }
 
     void ADRBullet::BeginPlay(){
@@ -32,7 +36,7 @@
         if (!OtherActor) return;
 
         if (ADRBaseCharacter* TargetCharacter = Cast<ADRBaseCharacter>(OtherActor)){
-            TargetCharacter->ApplyDamageToTarget(TargetCharacter);
+            
             Destroy();
         }
     }

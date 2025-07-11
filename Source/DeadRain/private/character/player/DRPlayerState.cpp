@@ -23,6 +23,8 @@
             CurrentHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetCurrentHealthAttribute()).AddUObject(this, &ADRPlayerState::CurrentHealthChanged);
             MaxHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetMaxHealthAttribute()).AddUObject(this, &ADRPlayerState::MaxHealthChanged);
             HealthRegenChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetHealthRegenAttribute()).AddUObject(this, &ADRPlayerState::HealthRegenChanged);
+            
+            CurrentMoneyChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetCurrentMoneyAttribute()).AddUObject(this, &ADRPlayerState::CurrentMoneyChanged);
         }
     }
 #pragma endregion
@@ -53,6 +55,10 @@
             return CharacterSet->GetHealthRegen();
         }
 
+        float ADRPlayerState::GetCurrentMoney() const {
+            return CharacterSet->GetCurrentMoney();
+        }
+
         void ADRPlayerState::CurrentHealthChanged(const FOnAttributeChangeData& Data){
             float CurrentHealth = Data.NewValue;
 
@@ -74,6 +80,16 @@
         }
         void ADRPlayerState::HealthRegenChanged(const FOnAttributeChangeData& Data){
 
+        }
+
+        void ADRPlayerState::CurrentMoneyChanged(const FOnAttributeChangeData& Data){
+            float CurrentMoney = Data.NewValue;
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
+                if (UDRHUDWidget* HUD = PC->GetHUD()){
+                    HUD->SetCurrentMoney(CurrentMoney);
+                }
+
+            }
         }
 
     #pragma endregion

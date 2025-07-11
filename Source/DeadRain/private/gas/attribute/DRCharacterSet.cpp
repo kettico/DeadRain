@@ -17,6 +17,8 @@ void UDRCharacterSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, CurrentHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, HealthRegen, COND_None, REPNOTIFY_Always);
+
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, CurrentMoney, COND_None, REPNOTIFY_Always);
 }
 
 void UDRCharacterSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue){
@@ -60,3 +62,8 @@ void UDRCharacterSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue){
 void UDRCharacterSet::OnRep_HealthRegen(const FGameplayAttributeData& OldValue){
     GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, HealthRegen, OldValue);
 }
+
+void UDRCharacterSet::OnRep_CurrentMoney(const FGameplayAttributeData& OldValue){
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentMoney, OldValue);
+}
+

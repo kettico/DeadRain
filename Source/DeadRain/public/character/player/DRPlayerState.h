@@ -44,13 +44,23 @@ protected:
         float GetMaxHealth() const;
         UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
         float GetHealthRegen() const;
+        UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
+        float GetCurrentMoney() const;
+
     protected:
-        virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data);
-        virtual void MaxHealthChanged(const FOnAttributeChangeData& Data);
-        virtual void HealthRegenChanged(const FOnAttributeChangeData& Data);
         FDelegateHandle CurrentHealthChangedDelegateHandle;
-	    FDelegateHandle MaxHealthChangedDelegateHandle;
-	    FDelegateHandle HealthRegenChangedDelegateHandle;
+        virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data);
+        FDelegateHandle MaxHealthChangedDelegateHandle;
+        virtual void MaxHealthChanged(const FOnAttributeChangeData& Data);
+        FDelegateHandle HealthRegenChangedDelegateHandle;
+        virtual void HealthRegenChanged(const FOnAttributeChangeData& Data);
+
+        FDelegateHandle CurrentMoneyChangedDelegateHandle;
+        virtual void CurrentMoneyChanged(const FOnAttributeChangeData& Data);
+
+        
+	    
+	    
     #pragma endregion
 
 #pragma endregion

@@ -14,6 +14,9 @@ class UGameplayEffect;
 class UDRItemManager;
 class ADRItem;
 class ADRWeapon;
+
+class UDRFloatingWidget;
+class UWidgetComponent;
 UCLASS()
 class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
@@ -25,7 +28,21 @@ class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemIn
         ADRBaseCharacter();
         virtual void Tick(float DeltaTime) override;
     protected:
+        virtual void OnConstruction(const FTransform& Transform) override;
         virtual void BeginPlay() override;
+#pragma endregion
+
+#pragma region INTERFACE
+
+    public:
+
+    protected:
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")  
+        TSubclassOf<UDRFloatingWidget> FloatingWidgetClass;
+        UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")  
+        UDRFloatingWidget* FloatingWidget;
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+        UWidgetComponent* FloatingWidgetComponent;
 #pragma endregion
 
 #pragma region INVENTORY
@@ -47,24 +64,9 @@ class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemIn
         UFUNCTION(BlueprintCallable, Category = "Weapon")
         void ActivateWeaponTertiary();
 
-        void ApplyDamageToTarget(AActor* Target);
-        void ReveiveDamage(float DamageAmount, AActor* DamageCauser);
-        
     protected:
         UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
         ADRWeapon* CurrentWeapon;
-#pragma endregion
-
-#pragma region STATS
-    public:
-        
-    protected:
-        UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "STATS")
-        float MaxHealth = 100.f;
-        UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "STATS")
-        float CurrentHealth = 100.f;
-
-
 #pragma endregion
 
 #pragma region GAS
@@ -74,12 +76,11 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
 	float GetCurrentHealth() const;
-	UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-	float GetMaxHealth() const;
+
 
 protected:
-    TWeakObjectPtr<UDRAbilitySystemComponent> AbilitySystemComponent;
-	TWeakObjectPtr<UDRCharacterSet> CharacterSet;
+    UDRAbilitySystemComponent* AbilitySystemComponent;
+	UDRCharacterSet* CharacterSet;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
 	TSubclassOf<UGameplayEffect> StartupAttributes;

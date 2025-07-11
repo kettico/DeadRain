@@ -36,6 +36,10 @@ public:
 	FGameplayAttributeData HealthRegen;
 	ATTRIBUTE_ACCESSORS(UDRCharacterSet, HealthRegen)
 
+    UPROPERTY(BlueprintReadOnly, Category = "Money", ReplicatedUsing = OnRep_CurrentMoney)
+	FGameplayAttributeData CurrentMoney;
+	ATTRIBUTE_ACCESSORS(UDRCharacterSet, CurrentMoney)
+
 protected:
     void AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty);
 
@@ -45,4 +49,7 @@ protected:
     void OnRep_MaxHealth(const FGameplayAttributeData& OldValue);
     UFUNCTION()
     void OnRep_HealthRegen(const FGameplayAttributeData& OldValue);
+
+    UFUNCTION()
+    void OnRep_CurrentMoney(const FGameplayAttributeData& OldValue);
 };

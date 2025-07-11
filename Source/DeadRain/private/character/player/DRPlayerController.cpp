@@ -50,6 +50,7 @@
             if (ADRPlayerState* PS = GetPlayerState<ADRPlayerState>()){
                 HUD->SetCurrentHealth(PS->GetCurrentHealth());
                 HUD->SetMaxHealth(PS->GetMaxHealth());
+                HUD->SetCurrentMoney(PS->GetCurrentMoney());
             }
         }
     }

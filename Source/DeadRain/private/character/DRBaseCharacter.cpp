@@ -3,17 +3,49 @@
 #include "gas/attribute/DRCharacterSet.h"
 #include "gas/DRAbilitySystemComponent.h"
 #include "GameplayEffect.h"
+#include "ui/character/DRFloatingWidget.h"
+#include "Components/WidgetComponent.h"
+#include "Kismet/GameplayStatics.h"
+
 #pragma region CORE
-    ADRBaseCharacter::ADRBaseCharacter(){
+    ADRBaseCharacter::ADRBaseCharacter()
+    {
+        FloatingWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("FloatingWidgetComponent"));
+        FloatingWidgetComponent->SetupAttachment(GetMesh());
+        FloatingWidgetComponent->SetRelativeLocation(FVector(0, 0, 120));
+        FloatingWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
+        FloatingWidgetComponent->SetDrawSize(FVector2D(500, 500));
+    }
+
+
+    void ADRBaseCharacter::OnConstruction(const FTransform& Transform){
+        Super::OnConstruction(Transform);
+        
+
+    }
+    
+    void ADRBaseCharacter::BeginPlay(){
+        Super::BeginPlay();
+
+        // Initialize UI
+        APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+        if (PC && PC->IsLocalPlayerController()){
+            if (FloatingWidgetClass){
+                FloatingWidget = CreateWidget<UDRFloatingWidget>(PC, FloatingWidgetClass);
+                FloatingWidgetComponent->SetWidget(FloatingWidget);
+                if (FloatingWidget){
+                    //FloatingWidget->SetOwningCharacter(this);
+                    FloatingWidget->SetVisibility(ESlateVisibility::Visible);
+                } else {
+                    UE_LOG(LogTemp, Warning, TEXT("Failed to create FloatingWidget for %s"), *GetName());
+                }
+            }
+        }
 
     }
 
     void ADRBaseCharacter::Tick(float DeltaTime){
         Super::Tick(DeltaTime);
-    }
-    
-    void ADRBaseCharacter::BeginPlay(){
-        Super::BeginPlay();
     }
 #pragma endregion
 
@@ -49,49 +81,24 @@
     }
 
 
-    void ADRBaseCharacter::ApplyDamageToTarget(AActor* Target){
-        if (!Target) return;
-
-        if (ADRBaseCharacter* TargetCharacter = Cast<ADRBaseCharacter>(Target)){
-            float DamageAmount = 10.f; // Example damage amount
-            TargetCharacter->ReveiveDamage(DamageAmount, this);
-        }
-
-    }
-
-    void ADRBaseCharacter::ReveiveDamage(float DamageAmount, AActor* DamageCauser){
-        if (DamageAmount <= 0) return;
-        if (!DamageCauser) return;
-
-        CurrentHealth -= DamageAmount;
-        if (CurrentHealth <= 0){
-            CurrentHealth = 0;
-        }
-    }
 
 #pragma endregion
 
 #pragma region GAS
 
 UAbilitySystemComponent* ADRBaseCharacter::GetAbilitySystemComponent() const{
-    return AbilitySystemComponent.Get();
+    return AbilitySystemComponent;
 }
 
 float ADRBaseCharacter::GetCurrentHealth() const{
-    if (CharacterSet.IsValid()) {
-    float Health = CharacterSet->GetCurrentHealth(); // or CharacterSet.Get()->GetCurrentHealth();
-    }
-    return -1.0f; // Return -1 if not valid
-}
-float ADRBaseCharacter::GetMaxHealth() const{
-    if (CharacterSet.IsValid()) {
-        return CharacterSet->GetMaxHealth();
+    if (CharacterSet) {
+        return CharacterSet->GetCurrentHealth(); // or CharacterSet.Get()->GetCurrentHealth();
     }
     return -1.0f; // Return -1 if not valid
 }
 
 void ADRBaseCharacter::InitializeGAS(){
-    if(GetLocalRole() != ROLE_Authority || !AbilitySystemComponent.IsValid())
+    if(GetLocalRole() != ROLE_Authority || !AbilitySystemComponent)
         return;
 
     // Add Startup Attributes
@@ -106,7 +113,7 @@ void ADRBaseCharacter::InitializeGAS(){
 	FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(StartupAttributes, 1, EffectContext);
 	if (NewHandle.IsValid())
 	{
-		FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent.Get());
+		FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
 	}
         
     // Add Startup Effects
@@ -116,12 +123,13 @@ void ADRBaseCharacter::InitializeGAS(){
 		NewHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect, 1, EffectContext);
 		if (NewHandle.IsValid())
 		{
-			FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent.Get());
+			FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
 		}
 	}
 
 
 }
+
 
 
 #pragma endregion
