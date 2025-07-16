@@ -18,6 +18,10 @@ class DEADRAIN_API ADRBullet : public AActor
 public:
     ADRBullet();
 
+    UFUNCTION()
+    void OnCollisionBegin(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,UPrimitiveComponent* OtherComp,int32 OtherBodyIndex,bool bFromSweep, const FHitResult& SweepResult);
+
+
 protected:
     virtual void BeginPlay() override;
 
@@ -27,6 +31,13 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UProjectileMovementComponent* ProjectileMovementComponent;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    UCapsuleComponent* CollisionCapsule;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS")
+    TSubclassOf<UGameplayEffect> GameplayEffect;
+
 #pragma endregion
 
 

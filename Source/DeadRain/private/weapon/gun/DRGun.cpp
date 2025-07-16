@@ -34,10 +34,14 @@
         FVector SpawnLocation = MuzzleComponent->GetComponentLocation();
         FRotator SpawnRotation = MuzzleComponent->GetComponentRotation();
 
+        FActorSpawnParameters SpawnParams;
+        SpawnParams.Owner = GetOwner();
+
         ADRBullet* NewBullet = GetWorld()->SpawnActor<ADRBullet>(
             BulletClass,
             SpawnLocation,
-            SpawnRotation
+            SpawnRotation,
+            SpawnParams
         );
     }
 
