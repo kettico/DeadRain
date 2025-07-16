@@ -75,7 +75,6 @@
             WeaponMesh->IgnoreActorWhenMoving(this, true);
         }
             
-
         NewWeapon->SetOwner(this);
         CurrentWeapon = NewWeapon;
     }

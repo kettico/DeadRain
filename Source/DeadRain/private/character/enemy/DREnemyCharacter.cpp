@@ -37,9 +37,6 @@ void ADREnemyCharacter::BeginPlay(){
         FloatingWidget->SetMaxHealth(CharacterSet->GetMaxHealth());
     }
 
-
-
-    UE_LOG(LogTemp, Error, TEXT("[%s] Current Health: %f, Max Health: %f"), *GetName(),CharacterSet->GetCurrentHealth(), CharacterSet->GetMaxHealth());
 }
 
 

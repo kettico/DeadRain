@@ -18,8 +18,9 @@ class DEADRAIN_API ADRGun : public ADRWeapon
     protected:
         virtual void BeginPlay() override;
 
+
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-        USceneComponent* MuzzleLocation; 
+        USceneComponent* MuzzleComponent; 
 
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
         TSubclassOf<ADRBullet> BulletClass;
@@ -34,11 +35,10 @@ class DEADRAIN_API ADRGun : public ADRWeapon
 
 #pragma region ATTACKS
     public:
-
-    
         virtual void Primary() override;
         virtual void Secondary() override;
         virtual void Tertiary() override; 
+    protected:
 #pragma endregion
     
 };

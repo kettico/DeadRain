@@ -2,13 +2,12 @@
 #include "weapon/gun/DRBullet.h"
 
 #pragma region CORE
-    ADRGun::ADRGun()
-    {
-        if (WeaponMesh){
-            MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
-            MuzzleLocation->SetupAttachment(WeaponMesh);   
-        }
-        CurrentMagSize = 100;
+    ADRGun::ADRGun(){
+
+
+        MuzzleComponent = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleComponent"));
+        MuzzleComponent->SetupAttachment(WeaponMesh);
+
     }
 
     void ADRGun::BeginPlay()
@@ -32,25 +31,14 @@
             return;
         }
 
-        if (CurrentMagSize < 1) {
-            UE_LOG(LogTemp, Warning, TEXT("Out of ammo in %s"), *GetName());
-            return;
-        }
+        FVector SpawnLocation = MuzzleComponent->GetComponentLocation();
+        FRotator SpawnRotation = MuzzleComponent->GetComponentRotation();
 
-        FActorSpawnParameters SpawnParams;
-        SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-        SpawnParams.Owner = GetOwner();
-
-        GetWorld()->SpawnActor<ADRBullet>(
+        ADRBullet* NewBullet = GetWorld()->SpawnActor<ADRBullet>(
             BulletClass,
-            MuzzleLocation->GetComponentLocation(),
-            MuzzleLocation->GetComponentRotation(),
-            SpawnParams
+            SpawnLocation,
+            SpawnRotation
         );
-
-        FVector SpawnLocation = MuzzleLocation->GetComponentLocation();
-
-        CurrentMagSize--;
     }
 
     void ADRGun::Secondary()
