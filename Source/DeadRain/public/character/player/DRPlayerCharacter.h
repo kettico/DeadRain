@@ -50,6 +50,14 @@ class DEADRAIN_API ADRPlayerCharacter : public ADRBaseCharacter
 
         virtual void InitializeGAS() override;
 
+
+        
+    #pragma region ATTRIBUTES
+        virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data) override ;
+        virtual void MaxHealthChanged(const FOnAttributeChangeData& Data) override ;
+        virtual void HealthRegenChanged(const FOnAttributeChangeData& Data) override ;
+
+    #pragma endregion
 #pragma endregion
 
 };

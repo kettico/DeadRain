@@ -25,6 +25,8 @@
 #pragma region ATTACKS
     void ADRGun::Primary()
     {
+        UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
+
         if (!BulletClass) {
             UE_LOG(LogTemp, Error, TEXT("BulletClass is not set for %s"), *GetName());
             return;
@@ -37,6 +39,7 @@
 
         FActorSpawnParameters SpawnParams;
         SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        SpawnParams.Owner = GetOwner();
 
         GetWorld()->SpawnActor<ADRBullet>(
             BulletClass,
@@ -47,19 +50,17 @@
 
         FVector SpawnLocation = MuzzleLocation->GetComponentLocation();
 
-        UE_LOG(LogTemp, Warning, TEXT("Bullet spawned at %f, %f, %f"), SpawnLocation.X, SpawnLocation.Y, SpawnLocation.Z);
-        UE_LOG(LogTemp, Warning, TEXT("Character Location: %f, %f, %f"), GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
-
         CurrentMagSize--;
     }
 
     void ADRGun::Secondary()
     {
-        
+        UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
     }
 
     void ADRGun::Tertiary()
     {
+        UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
         CurrentMagSize = MaxMagSize;
     }
 #pragma endregion

@@ -33,6 +33,11 @@ class DEADRAIN_API ADRInteractableActor : public AActor, public IDRInteractionIn
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
         bool bIsInteractable = true;
 
-        
+    public:
+        UFUNCTION(BlueprintCallable, Category = "Interaction")
+        int64 GetCost() const { return Cost; }
+    protected:
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
+        int64 Cost = 0;
 #pragma endregion
 };

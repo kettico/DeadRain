@@ -48,12 +48,6 @@ protected:
         float GetCurrentMoney() const;
 
     protected:
-        FDelegateHandle CurrentHealthChangedDelegateHandle;
-        virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data);
-        FDelegateHandle MaxHealthChangedDelegateHandle;
-        virtual void MaxHealthChanged(const FOnAttributeChangeData& Data);
-        FDelegateHandle HealthRegenChangedDelegateHandle;
-        virtual void HealthRegenChanged(const FOnAttributeChangeData& Data);
 
         FDelegateHandle CurrentMoneyChangedDelegateHandle;
         virtual void CurrentMoneyChanged(const FOnAttributeChangeData& Data);

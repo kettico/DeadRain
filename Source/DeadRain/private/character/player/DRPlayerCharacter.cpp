@@ -29,6 +29,8 @@
     }
 
     void ADRPlayerCharacter::PossessedBy(AController* NewController) {
+        UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
+
         Super::PossessedBy(NewController);
 
         InitializeGAS();
@@ -45,6 +47,8 @@
 #pragma region INTERACTION
 
     void ADRPlayerCharacter::TickInteractionCheck(){
+
+
         FVector Start = Camera->GetComponentLocation();
         FVector End = Start + Camera->GetForwardVector() * InteractionDistance;
 
@@ -94,6 +98,7 @@
     }
 
     void ADRPlayerCharacter::InitializeGAS(){
+        
         if (ADRPlayerState* PS = GetPlayerState<ADRPlayerState>()){
             AbilitySystemComponent = Cast<UDRAbilitySystemComponent>(PS->GetAbilitySystemComponent());
             PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, this);
@@ -107,4 +112,39 @@
             }
         }
     }
+
+
+
+        #pragma region ATTRIBUTES
+        void ADRPlayerCharacter::CurrentHealthChanged(const FOnAttributeChangeData& Data){
+            Super::CurrentHealthChanged(Data);
+
+            float CurrentHealth = Data.NewValue;
+
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
+                if (UDRHUDWidget* HUD = PC->GetHUD()){
+                    HUD->SetCurrentHealth(CurrentHealth);
+                }
+            }
+        }
+
+        
+        void ADRPlayerCharacter::MaxHealthChanged(const FOnAttributeChangeData& Data){
+            Super::MaxHealthChanged(Data);
+            
+            float MaxHealth = Data.NewValue;
+
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
+                if (UDRHUDWidget* HUD = PC->GetHUD()){
+                    HUD->SetMaxHealth(MaxHealth);
+                }
+            }
+        }
+
+
+        void ADRPlayerCharacter::HealthRegenChanged(const FOnAttributeChangeData& Data){
+            Super::HealthRegenChanged(Data);
+        }
+
+    #pragma endregion
 #pragma endregion

@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
-
+#include "AbilitySystemComponent.h"
 #include "DRBaseCharacter.generated.h"
 
 class UAbilitySystemComponent;
@@ -27,9 +27,19 @@ class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemIn
     public:
         ADRBaseCharacter();
         virtual void Tick(float DeltaTime) override;
+
+        UFUNCTION(BlueprintCallable, Category = "Character|Attributes")
+        virtual FText GetDisplayName() const { return DisplayName; }
+        UFUNCTION(BlueprintCallable, Category = "Character|Attributes")
+        virtual void SetDisplayName(FText NewName)  { DisplayName = NewName; }
+
+
     protected:
         virtual void OnConstruction(const FTransform& Transform) override;
         virtual void BeginPlay() override;
+
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+        FText DisplayName = FText::FromString(TEXT("DEFAULT NAME"));
 #pragma endregion
 
 #pragma region INTERFACE
@@ -77,9 +87,15 @@ public:
     UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
 	float GetCurrentHealth() const;
 
+    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+    void ApplyGameplayEffectToTarget( TSubclassOf<UGameplayEffect> GameplayEffectClass, ADRBaseCharacter* TargetCharacter);
+    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+    void ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass);
 
 protected:
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UDRAbilitySystemComponent* AbilitySystemComponent;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UDRCharacterSet* CharacterSet;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
@@ -88,6 +104,18 @@ protected:
 	TArray<TSubclassOf<UGameplayEffect>> StartupEffects;
 
     virtual void InitializeGAS();
+
+
+    FDelegateHandle CurrentHealthChangedDelegateHandle;
+    virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data);
+
+    FDelegateHandle MaxHealthChangedDelegateHandle;
+    virtual void MaxHealthChanged(const FOnAttributeChangeData& Data);
+    FDelegateHandle HealthRegenChangedDelegateHandle;
+    virtual void HealthRegenChanged(const FOnAttributeChangeData& Data);
+
+
+
 
 #pragma endregion
     

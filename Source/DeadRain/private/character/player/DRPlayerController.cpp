@@ -32,6 +32,8 @@
 
 #pragma region - UI
     void ADRPlayerController::InitializeHUD(){
+        UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
+        
         if (!HUDClass && !HUD){
             UE_LOG(LogTemp, Warning, TEXT("[%s()] - MISSING HUDClass"), *FString(__FUNCTION__));
             return;

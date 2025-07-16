@@ -6,6 +6,8 @@
 
 class UStaticMeshComponent;
 class UCapsuleComponent;
+class UProjectileMovementComponent;
+class UGameplayEffect;
 
 UCLASS()
 class DEADRAIN_API ADRBullet : public AActor
@@ -15,6 +17,7 @@ class DEADRAIN_API ADRBullet : public AActor
 #pragma region CORE
 public:    
     ADRBullet();
+    virtual void Tick( float DeltaTime ) override;
 
 protected:
 
@@ -25,6 +28,12 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UCapsuleComponent* CollisionCapsule;
+
+    UPROPERTY(VisibleAnywhere, Category = Movement)
+    UProjectileMovementComponent* ProjectileMovementComponent;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS")
+    TSubclassOf<UGameplayEffect> GameplayEffect;
 
     UFUNCTION()
     void OnCollisionBegin(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,UPrimitiveComponent* OtherComp,int32 OtherBodyIndex,bool bFromSweep, const FHitResult& SweepResult);

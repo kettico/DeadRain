@@ -20,10 +20,7 @@
         Super::BeginPlay();
 
         if (AbilitySystemComponent){
-            CurrentHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetCurrentHealthAttribute()).AddUObject(this, &ADRPlayerState::CurrentHealthChanged);
-            MaxHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetMaxHealthAttribute()).AddUObject(this, &ADRPlayerState::MaxHealthChanged);
-            HealthRegenChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetHealthRegenAttribute()).AddUObject(this, &ADRPlayerState::HealthRegenChanged);
-            
+
             CurrentMoneyChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetCurrentMoneyAttribute()).AddUObject(this, &ADRPlayerState::CurrentMoneyChanged);
         }
     }
@@ -59,30 +56,10 @@
             return CharacterSet->GetCurrentMoney();
         }
 
-        void ADRPlayerState::CurrentHealthChanged(const FOnAttributeChangeData& Data){
-            float CurrentHealth = Data.NewValue;
-
-            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
-                if (UDRHUDWidget* HUD = PC->GetHUD()){
-                    HUD->SetCurrentHealth(CurrentHealth);
-                }
-            }
-        }
-
-        void ADRPlayerState::MaxHealthChanged(const FOnAttributeChangeData& Data){
-            float MaxHealth = Data.NewValue;
-
-            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
-                if (UDRHUDWidget* HUD = PC->GetHUD()){
-                    HUD->SetMaxHealth(MaxHealth);
-                }
-            }
-        }
-        void ADRPlayerState::HealthRegenChanged(const FOnAttributeChangeData& Data){
-
-        }
 
         void ADRPlayerState::CurrentMoneyChanged(const FOnAttributeChangeData& Data){
+            UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
+
             UE_LOG( LogTemp, Warning, TEXT("CurrentMoneyChanged: %f"), Data.NewValue);
             float CurrentMoney = Data.NewValue;
             if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){

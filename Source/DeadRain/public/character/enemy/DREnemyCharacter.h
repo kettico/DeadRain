@@ -23,6 +23,7 @@ class DEADRAIN_API ADREnemyCharacter : public ADRBaseCharacter
 
     protected:
         virtual void BeginPlay() override;
+        virtual void OnConstruction(const FTransform& Transform) override;
 
 
 #pragma endregion

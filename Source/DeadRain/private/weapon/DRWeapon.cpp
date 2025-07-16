@@ -17,23 +17,29 @@
 
 
 void ADRWeapon::InteractPress_Implementation(ADRBaseCharacter* Interactor){
+    UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
+
     Interactor->EquipWeapon(this);
 }
 
 void ADRWeapon::InteractHold_Implementation(ADRBaseCharacter* Interactor){
+    UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
+
     Interactor->EquipWeapon(this);
 }
 
 #pragma region ATTACKS
     void ADRWeapon::Primary(){
-        UE_LOG(LogTemp, Warning, TEXT("Primary attack executed on %s"), *GetName());
+        UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
     }
 
     void ADRWeapon::Secondary(){
+        UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
 
     }
 
     void ADRWeapon::Tertiary(){
+        UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
         
     }
 #pragma endregion
