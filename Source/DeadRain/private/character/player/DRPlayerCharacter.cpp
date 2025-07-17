@@ -113,7 +113,9 @@
         }
     }
 
-
+    void ADRPlayerCharacter::Die() {
+       Super::Die();
+    }
 
         #pragma region ATTRIBUTES
         void ADRPlayerCharacter::CurrentHealthChanged(const FOnAttributeChangeData& Data){

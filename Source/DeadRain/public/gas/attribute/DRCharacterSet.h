@@ -23,6 +23,10 @@ public:
     virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
     virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
     
+    UPROPERTY(BlueprintReadOnly, Category = "IncomingDamage", ReplicatedUsing = OnRep_IncomingDamage)
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UDRCharacterSet, IncomingDamage)
+
     UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_CurrentHealth)
 	FGameplayAttributeData CurrentHealth;
 	ATTRIBUTE_ACCESSORS(UDRCharacterSet, CurrentHealth)
@@ -42,6 +46,9 @@ public:
 
 protected:
     void AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty);
+
+    UFUNCTION()
+    void OnRep_IncomingDamage(const FGameplayAttributeData& OldValue);
 
     UFUNCTION()
     void OnRep_CurrentHealth(const FGameplayAttributeData& OldValue);

@@ -34,7 +34,76 @@ void UDRCharacterSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 
 	Super::PostGameplayEffectExecute(Data);
 
-    //TODO:
+    FGameplayEffectContextHandle Context = Data.EffectSpec.GetContext();
+	UAbilitySystemComponent* Source = Context.GetOriginalInstigatorAbilitySystemComponent();
+	const FGameplayTagContainer& SourceTags = *Data.EffectSpec.CapturedSourceTags.GetAggregatedTags();
+	FGameplayTagContainer SpecAssetTags;
+	Data.EffectSpec.GetAllAssetTags(SpecAssetTags);
+
+	// Get the Target actor, which should be our owner
+	AActor* TargetActor = nullptr;
+	AController* TargetController = nullptr;
+	ADRBaseCharacter* TargetCharacter = nullptr;
+	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
+	{
+		TargetActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
+		TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
+		TargetCharacter = Cast<ADRBaseCharacter>(TargetActor);
+	}
+
+	// Get the Source actor
+	AActor* SourceActor = nullptr;
+	AController* SourceController = nullptr;
+	ADRBaseCharacter* SourceCharacter = nullptr;
+	if (Source && Source->AbilityActorInfo.IsValid() && Source->AbilityActorInfo->AvatarActor.IsValid())
+	{
+		SourceActor = Source->AbilityActorInfo->AvatarActor.Get();
+		SourceController = Source->AbilityActorInfo->PlayerController.Get();
+		if (SourceController == nullptr && SourceActor != nullptr)
+		{
+			if (APawn* Pawn = Cast<APawn>(SourceActor))
+			{
+				SourceController = Pawn->GetController();
+			}
+		}
+
+		// Use the controller to find the source pawn
+		if (SourceController)
+		{
+			SourceCharacter = Cast<ADRBaseCharacter>(SourceController->GetPawn());
+		}
+		else
+		{
+			SourceCharacter = Cast<ADRBaseCharacter>(SourceActor);
+		}
+
+		// Set the causer actor based on context if it's set
+		if (Context.GetEffectCauser())
+		{
+			SourceActor = Context.GetEffectCauser();
+		}
+	}
+
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float LocalIncomingDamage = GetIncomingDamage();
+		if (LocalIncomingDamage > 0.0f){
+			SetIncomingDamage(0.0f);
+
+			const float OldHealth = GetCurrentHealth();
+            const float NewHealth = FMath::Clamp(OldHealth - LocalIncomingDamage, 0.0f, GetMaxHealth());
+            SetCurrentHealth(NewHealth);
+
+            // Optional: Add logic for OnDeath or low health here
+            if (OldHealth > 0.0f && NewHealth <= 0.0f)
+            {
+                TargetCharacter->Die();
+            }
+		}
+	} else if (Data.EvaluatedData.Attribute == GetCurrentHealthAttribute()){
+		SetCurrentHealth(FMath::Clamp(GetCurrentHealth(), 0.0f, GetMaxHealth()));
+	}
+
 }
 
 // THIS DOESNT WORK
@@ -52,6 +121,11 @@ void UDRCharacterSet::AdjustAttributeForMaxChange(FGameplayAttributeData& Affect
 }
 
 
+
+
+void UDRCharacterSet::OnRep_IncomingDamage(const FGameplayAttributeData& OldValue){
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, IncomingDamage, OldValue);
+}
 
 void UDRCharacterSet::OnRep_CurrentHealth(const FGameplayAttributeData& OldValue){
     GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentHealth, OldValue);

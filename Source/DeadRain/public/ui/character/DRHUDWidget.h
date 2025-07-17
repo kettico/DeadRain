@@ -5,6 +5,7 @@
 #include "DRHUDWidget.generated.h"
 
 class ADRInteractableActor;
+class UDRAttributeWidget;
 
 UCLASS()
 class DEADRAIN_API UDRHUDWidget : public UUserWidget
@@ -24,6 +25,9 @@ public:
     void SetCurrentInteractable(ADRInteractableActor* IA);
 
 protected:
+
+    UPROPERTY(meta = (BindWidget))
+    UDRAttributeWidget* AttributeWidget;
 
 
 };

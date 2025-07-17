@@ -28,6 +28,13 @@ class DEADRAIN_API ADREnemyCharacter : public ADRBaseCharacter
 
 #pragma endregion
 
+#pragma region GAS
+public:
+    virtual void Die() override;
+protected:
+
+#pragma endregion
+
 #pragma region INTERACTION
     public:
 

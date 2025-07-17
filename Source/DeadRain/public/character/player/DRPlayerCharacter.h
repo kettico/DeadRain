@@ -48,16 +48,26 @@ class DEADRAIN_API ADRPlayerCharacter : public ADRBaseCharacter
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
         float InteractionDistance = 200.0f; // Distance to check for interactable actors
 
-        virtual void InitializeGAS() override;
+
 
 
         
+    
+#pragma endregion
+
+
+#pragma region GAS
+public:
+    virtual void Die() override;
+protected:
+    virtual void InitializeGAS() override;
     #pragma region ATTRIBUTES
         virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data) override ;
         virtual void MaxHealthChanged(const FOnAttributeChangeData& Data) override ;
         virtual void HealthRegenChanged(const FOnAttributeChangeData& Data) override ;
 
     #pragma endregion
+
 #pragma endregion
 
 };

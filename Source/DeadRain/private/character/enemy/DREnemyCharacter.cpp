@@ -52,3 +52,8 @@ void ADREnemyCharacter::InitializeGAS() {
         Super::InitializeGAS();
     }
 }
+
+ void ADREnemyCharacter::Die() {
+       Super::Die();
+       Destroy();
+    }

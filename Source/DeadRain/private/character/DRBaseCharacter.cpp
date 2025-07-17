@@ -140,22 +140,17 @@ void ADRBaseCharacter::InitializeGAS(){
 	} else {
         ApplyGameplayEffectToSelf(StartupAttributes);
     }
-    /*
-	// Can run on Server and Client
-	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
-	EffectContext.AddSourceObject(this);
-	FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(StartupAttributes, 1, EffectContext);
-	if (NewHandle.IsValid())
-	{
-		FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
-	}
-    */
         
     // Add Startup Effects
 	for (TSubclassOf<UGameplayEffect> GameplayEffect : StartupEffects)
 	{
 		ApplyGameplayEffectToSelf(GameplayEffect);
 	}
+
+    // Add Startup Abilities
+    for (TSubclassOf<UGameplayAbility> Ability :  StartupAbilities){
+        AddAbilityToSelf(Ability);
+    }
 
 
 }
@@ -197,6 +192,36 @@ void ADRBaseCharacter::InitializeGAS(){
         {
             UE_LOG(LogTemp, Error, TEXT("Failed to create GameplayEffectSpec for %s"), *GameplayEffectClass->GetName());
         }
+    }
+
+    void ADRBaseCharacter::AddAbilityToSelf(TSubclassOf<UGameplayAbility> NewAbilityClass){
+        if (!AbilitySystemComponent || !NewAbilityClass) return;
+        UE_LOG(LogTemp, Log, TEXT("[%s] - %s Adding Ability on self"), TEXT(__FUNCTION__), *GetName());
+
+        
+        FGameplayAbilitySpec Spec(NewAbilityClass, 1, static_cast<int32>(INDEX_NONE), this);
+        AbilitySystemComponent->GiveAbility(Spec);
+    }
+
+    void ADRBaseCharacter::AddAbilityToTarget(TSubclassOf<UGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter){
+        if (!AbilitySystemComponent || !TargetCharacter || !NewAbilityClass) return;
+        UE_LOG(LogTemp, Log, TEXT("[%s] - %s Adding Ability on %s"), TEXT(__FUNCTION__), *GetName(), *TargetCharacter->GetName());
+
+        
+        UAbilitySystemComponent* TargetASC = TargetCharacter->GetAbilitySystemComponent();
+        if (!TargetASC || !HasAuthority())
+            return;
+
+        UE_LOG(LogTemp, Log, TEXT("[%s] - %s Adding Ability on %s"), TEXT(__FUNCTION__), *GetName(), *TargetCharacter->GetName());
+
+        FGameplayAbilitySpec Spec(NewAbilityClass, 1, INDEX_NONE, this);
+        TargetASC->GiveAbility(Spec);
+    }
+
+
+
+    void ADRBaseCharacter::Die() {
+        UE_LOG(LogTemp, Error, TEXT("%s Died "), *GetName());
     }
 
 
