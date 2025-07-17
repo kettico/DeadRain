@@ -7,6 +7,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class ADRInteractableActor;
+class UDRGameplayAbility;
 /**
  * ADRPlayerCharacter
  * A base player character for the SpaceGame.
@@ -73,6 +74,18 @@ protected:
         virtual void CurrentManaChanged(const FOnAttributeChangeData& Data) override ;
         virtual void MaxManaChanged(const FOnAttributeChangeData& Data) override ;
         virtual void ManaRegenChanged(const FOnAttributeChangeData& Data) override ;
+
+    #pragma endregion
+
+    #pragma region ABILITIES
+
+    public:
+        UFUNCTION(BlueprintCallable)
+        void ActivateAbilityByIndex(int32 Index);
+    protected:
+        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "DeadRain|GAS|Abilities")
+        TArray<TSubclassOf<UDRGameplayAbility>> AbilitySlots;
+        TArray<FGameplayAbilitySpecHandle> AbilityHandles;
 
     #pragma endregion
 

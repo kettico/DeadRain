@@ -9,6 +9,7 @@
 #include "gas/DRAbilitySystemComponent.h"
 
 #include "ui/character/DRHUDWidget.h"
+#include "GAS/DRGameplayAbility.h"
 
 #pragma region CORE
     ADRPlayerCharacter::ADRPlayerCharacter(){
@@ -110,6 +111,17 @@
             if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetController())) {
                 
             }
+
+            // Initialize Abilities if Preset in Character
+            for (int32 i = 0; i < AbilitySlots.Num(); ++i)
+            {
+                if (AbilitySlots[i])
+                {
+                    FGameplayAbilitySpec Spec(AbilitySlots[i], 1, i); // Index = InputID
+                    FGameplayAbilitySpecHandle Handle = AbilitySystemComponent->GiveAbility(Spec);
+                    AbilityHandles.Add(Handle);
+                }
+            }
         }
     }
 
@@ -210,5 +222,14 @@
             Super::ManaRegenChanged(Data);
         }
 
+    #pragma endregion
+
+    #pragma region ABILITIES
+    void ADRPlayerCharacter::ActivateAbilityByIndex(int32 Index){
+        if (AbilityHandles.IsValidIndex(Index) && AbilityHandles[Index].IsValid())
+        {
+            AbilitySystemComponent->TryActivateAbility(AbilityHandles[Index]);
+        }
+    }
     #pragma endregion
 #pragma endregion
