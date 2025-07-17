@@ -23,7 +23,7 @@ void UDRHUDWidget::SetCurrentStamina(float NewValue){
 
 void UDRHUDWidget::SetMaxStamina(float NewValue){
     if (AttributeWidget) 
-        AttributeWidget->SetMaxStamin(NewValue);  
+        AttributeWidget->SetMaxStamina(NewValue);  
 }
 
 void UDRHUDWidget::SetCurrentMana(float NewValue){

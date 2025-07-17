@@ -52,6 +52,32 @@
             return CharacterSet->GetHealthRegen();
         }
 
+        // STAMINA
+        float ADRPlayerState::GetCurrentStamina() const {
+            return CharacterSet->GetCurrentStamina();
+        }
+
+        float ADRPlayerState::GetMaxStamina() const {
+            return CharacterSet->GetMaxStamina();
+        }
+
+        float ADRPlayerState::GetStaminaRegen() const {
+            return CharacterSet->GetStaminaRegen();
+        }
+
+        // MANA
+        float ADRPlayerState::GetCurrentMana() const {
+            return CharacterSet->GetCurrentMana();
+        }
+
+        float ADRPlayerState::GetMaxMana() const {
+            return CharacterSet->GetMaxMana();
+        }
+
+        float ADRPlayerState::GetManaRegen() const {
+            return CharacterSet->GetManaRegen();
+        }
+
         float ADRPlayerState::GetCurrentMoney() const {
             return CharacterSet->GetCurrentMoney();
         }

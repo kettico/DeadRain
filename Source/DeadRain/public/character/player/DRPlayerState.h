@@ -44,6 +44,22 @@ protected:
         float GetMaxHealth() const;
         UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
         float GetHealthRegen() const;
+
+                UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
+        float GetCurrentStamina() const;
+        UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
+        float GetMaxStamina() const;
+        UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
+        float GetStaminaRegen() const;
+
+                UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
+        float GetCurrentMana() const;
+        UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
+        float GetMaxMana() const;
+        UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
+        float GetManaRegen() const;
+
+
         UFUNCTION(BlueprintCallable, Category = "GAS|Player|State|Attributes")
         float GetCurrentMoney() const;
 

@@ -48,6 +48,15 @@
             CurrentHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetCurrentHealthAttribute()).AddUObject(this, &ADRBaseCharacter::CurrentHealthChanged);
             MaxHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetMaxHealthAttribute()).AddUObject(this, &ADRBaseCharacter::MaxHealthChanged);
             HealthRegenChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetHealthRegenAttribute()).AddUObject(this, &ADRBaseCharacter::HealthRegenChanged);
+         
+            CurrentStaminaChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetCurrentStaminaAttribute()).AddUObject(this, &ADRBaseCharacter::CurrentStaminaChanged);
+            MaxStaminaChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetMaxStaminaAttribute()).AddUObject(this, &ADRBaseCharacter::MaxStaminaChanged);
+            StaminaRegenChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetStaminaRegenAttribute()).AddUObject(this, &ADRBaseCharacter::StaminaRegenChanged);
+            
+
+            CurrentManaChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetCurrentManaAttribute()).AddUObject(this, &ADRBaseCharacter::CurrentManaChanged);
+            MaxManaChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetMaxManaAttribute()).AddUObject(this, &ADRBaseCharacter::MaxManaChanged);
+            ManaRegenChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CharacterSet->GetManaRegenAttribute()).AddUObject(this, &ADRBaseCharacter::ManaRegenChanged);
             
         }
         
@@ -117,10 +126,26 @@ UAbilitySystemComponent* ADRBaseCharacter::GetAbilitySystemComponent() const{
 
 float ADRBaseCharacter::GetCurrentHealth() const{
     if (CharacterSet) {
-        return CharacterSet->GetCurrentHealth(); // or CharacterSet.Get()->GetCurrentHealth();
+        return CharacterSet->GetCurrentHealth(); 
     }
-    return -1.0f; // Return -1 if not valid
+    return -1.0f;
 }
+
+float ADRBaseCharacter::GetCurrentStamina() const{
+    if (CharacterSet) {
+        return CharacterSet->GetCurrentStamina(); 
+    }
+    return -1.0f;
+}
+
+float ADRBaseCharacter::GetCurrentMana() const{
+    if (CharacterSet) {
+        return CharacterSet->GetCurrentMana(); 
+    }
+    return -1.0f;
+}
+
+
 
 void ADRBaseCharacter::InitializeGAS(){
     UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
@@ -249,6 +274,53 @@ void ADRBaseCharacter::InitializeGAS(){
 
 
         void ADRBaseCharacter::HealthRegenChanged(const FOnAttributeChangeData& Data){
+            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
+
+
+        }
+
+        // STAMINA
+                void ADRBaseCharacter::CurrentStaminaChanged(const FOnAttributeChangeData& Data){
+            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
+            
+            float CurrentStamina = Data.NewValue;
+
+        }
+
+        
+        void ADRBaseCharacter::MaxStaminaChanged(const FOnAttributeChangeData& Data){
+            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
+
+            float MaxStamina = Data.NewValue;
+
+        }
+
+
+        void ADRBaseCharacter::StaminaRegenChanged(const FOnAttributeChangeData& Data){
+            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
+
+
+        }
+
+                // Mana
+                void ADRBaseCharacter::CurrentManaChanged(const FOnAttributeChangeData& Data){
+            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
+            
+            float CurrentMana = Data.NewValue;
+
+        }
+
+        
+        void ADRBaseCharacter::MaxManaChanged(const FOnAttributeChangeData& Data){
+            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
+
+            float MaxMana = Data.NewValue;
+
+
+        }
+
+
+        void ADRBaseCharacter::ManaRegenChanged(const FOnAttributeChangeData& Data){
             UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
 
 

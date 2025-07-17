@@ -66,6 +66,14 @@ protected:
         virtual void MaxHealthChanged(const FOnAttributeChangeData& Data) override ;
         virtual void HealthRegenChanged(const FOnAttributeChangeData& Data) override ;
 
+        virtual void CurrentStaminaChanged(const FOnAttributeChangeData& Data) override ;
+        virtual void MaxStaminaChanged(const FOnAttributeChangeData& Data) override ;
+        virtual void StaminaRegenChanged(const FOnAttributeChangeData& Data) override ;
+
+        virtual void CurrentManaChanged(const FOnAttributeChangeData& Data) override ;
+        virtual void MaxManaChanged(const FOnAttributeChangeData& Data) override ;
+        virtual void ManaRegenChanged(const FOnAttributeChangeData& Data) override ;
+
     #pragma endregion
 
 #pragma endregion

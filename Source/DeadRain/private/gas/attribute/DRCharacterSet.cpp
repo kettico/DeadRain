@@ -18,6 +18,14 @@ void UDRCharacterSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, HealthRegen, COND_None, REPNOTIFY_Always);
 
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, CurrentStamina, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, MaxStamina, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, StaminaRegen, COND_None, REPNOTIFY_Always);
+
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, CurrentMana, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, MaxMana, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, ManaRegen, COND_None, REPNOTIFY_Always);
+
 	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, CurrentMoney, COND_None, REPNOTIFY_Always);
 }
 
@@ -27,7 +35,9 @@ void UDRCharacterSet::PreAttributeChange(const FGameplayAttribute& Attribute, fl
     // On Max Change, adjust Current so it is the same % 
     if (Attribute == GetMaxHealthAttribute()) {
         //AdjustAttributeForMaxChange(CurrentHealth, MaxHealth, NewValue, GetCurrentHealthAttribute());
-    } 
+    } else if (Attribute == GetMaxStaminaAttribute()) {
+	} else if (Attribute == GetMaxManaAttribute()) {
+	}
 }
 
 void UDRCharacterSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data){
@@ -102,6 +112,10 @@ void UDRCharacterSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 		}
 	} else if (Data.EvaluatedData.Attribute == GetCurrentHealthAttribute()){
 		SetCurrentHealth(FMath::Clamp(GetCurrentHealth(), 0.0f, GetMaxHealth()));
+	} else if (Data.EvaluatedData.Attribute == GetCurrentStaminaAttribute()){
+		SetCurrentStamina(FMath::Clamp(GetCurrentStamina(), 0.0f, GetMaxStamina()));
+	} else if (Data.EvaluatedData.Attribute == GetCurrentManaAttribute()){
+		SetCurrentMana(FMath::Clamp(GetCurrentMana(), 0.0f, GetMaxMana()));
 	}
 
 }
@@ -135,6 +149,29 @@ void UDRCharacterSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue){
 }
 void UDRCharacterSet::OnRep_HealthRegen(const FGameplayAttributeData& OldValue){
     GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, HealthRegen, OldValue);
+}
+
+
+// STAMINA ----------------------------------------------------------------
+void UDRCharacterSet::OnRep_CurrentStamina(const FGameplayAttributeData& OldValue){
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentStamina, OldValue);
+}
+void UDRCharacterSet::OnRep_MaxStamina(const FGameplayAttributeData& OldValue){
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, MaxStamina, OldValue);
+}
+void UDRCharacterSet::OnRep_StaminaRegen(const FGameplayAttributeData& OldValue){
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, StaminaRegen, OldValue);
+}
+
+// Mana ----------------------------------------------------------------
+void UDRCharacterSet::OnRep_CurrentMana(const FGameplayAttributeData& OldValue){
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentMana, OldValue);
+}
+void UDRCharacterSet::OnRep_MaxMana(const FGameplayAttributeData& OldValue){
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, MaxMana, OldValue);
+}
+void UDRCharacterSet::OnRep_ManaRegen(const FGameplayAttributeData& OldValue){
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, ManaRegen, OldValue);
 }
 
 void UDRCharacterSet::OnRep_CurrentMoney(const FGameplayAttributeData& OldValue){

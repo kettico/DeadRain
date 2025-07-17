@@ -148,5 +148,67 @@
             Super::HealthRegenChanged(Data);
         }
 
+        // Stamina
+                void ADRPlayerCharacter::CurrentStaminaChanged(const FOnAttributeChangeData& Data){
+            Super::CurrentStaminaChanged(Data);
+
+            float CurrentStamina = Data.NewValue;
+
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
+                if (UDRHUDWidget* HUD = PC->GetHUD()){
+                    HUD->SetCurrentStamina(CurrentStamina);
+                }
+            }
+        }
+
+        
+        void ADRPlayerCharacter::MaxStaminaChanged(const FOnAttributeChangeData& Data){
+            Super::MaxStaminaChanged(Data);
+            
+            float MaxStamina = Data.NewValue;
+
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
+                if (UDRHUDWidget* HUD = PC->GetHUD()){
+                    HUD->SetMaxStamina(MaxStamina);
+                }
+            }
+        }
+
+
+        void ADRPlayerCharacter::StaminaRegenChanged(const FOnAttributeChangeData& Data){
+            Super::StaminaRegenChanged(Data);
+        }
+
+        // MANA
+                void ADRPlayerCharacter::CurrentManaChanged(const FOnAttributeChangeData& Data){
+            Super::CurrentManaChanged(Data);
+
+            float CurrentMana = Data.NewValue;
+
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
+                if (UDRHUDWidget* HUD = PC->GetHUD()){
+                    HUD->SetCurrentMana(CurrentMana);
+                }
+            }
+        }
+
+        
+        void ADRPlayerCharacter::MaxManaChanged(const FOnAttributeChangeData& Data){
+            Super::MaxManaChanged(Data);
+            
+            float MaxMana = Data.NewValue;
+
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
+                if (UDRHUDWidget* HUD = PC->GetHUD()){
+                    HUD->SetMaxMana(MaxMana);
+                }
+            }
+        }
+
+
+        void ADRPlayerCharacter::ManaRegenChanged(const FOnAttributeChangeData& Data){
+            Super::ManaRegenChanged(Data);
+        }
+
     #pragma endregion
 #pragma endregion

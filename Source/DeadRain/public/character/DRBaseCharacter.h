@@ -86,6 +86,10 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
 	float GetCurrentHealth() const;
+    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+	float GetCurrentStamina() const;
+    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+	float GetCurrentMana() const;
 
     UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
     void ApplyGameplayEffectToTarget( TSubclassOf<UGameplayEffect> GameplayEffectClass, ADRBaseCharacter* TargetCharacter);
@@ -116,13 +120,29 @@ protected:
     virtual void InitializeGAS();
 
 
+    // HEALTH
     FDelegateHandle CurrentHealthChangedDelegateHandle;
     virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data);
-
     FDelegateHandle MaxHealthChangedDelegateHandle;
     virtual void MaxHealthChanged(const FOnAttributeChangeData& Data);
     FDelegateHandle HealthRegenChangedDelegateHandle;
     virtual void HealthRegenChanged(const FOnAttributeChangeData& Data);
+
+    // Stamina
+    FDelegateHandle CurrentStaminaChangedDelegateHandle;
+    virtual void CurrentStaminaChanged(const FOnAttributeChangeData& Data);
+    FDelegateHandle MaxStaminaChangedDelegateHandle;
+    virtual void MaxStaminaChanged(const FOnAttributeChangeData& Data);
+    FDelegateHandle StaminaRegenChangedDelegateHandle;
+    virtual void StaminaRegenChanged(const FOnAttributeChangeData& Data);
+
+        // Mana
+    FDelegateHandle CurrentManaChangedDelegateHandle;
+    virtual void CurrentManaChanged(const FOnAttributeChangeData& Data);
+    FDelegateHandle MaxManaChangedDelegateHandle;
+    virtual void MaxManaChanged(const FOnAttributeChangeData& Data);
+    FDelegateHandle ManaRegenChangedDelegateHandle;
+    virtual void ManaRegenChanged(const FOnAttributeChangeData& Data);
 
 
 
