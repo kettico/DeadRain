@@ -54,8 +54,6 @@
                 HUD->SetMaxHealth(PS->GetMaxHealth());
                 HUD->SetCurrentMoney(PS->GetCurrentMoney());
 
-                UE_LOG(LogTemp, Error, TEXT("CURRENT STAMINA %f"), PS->GetCurrentStamina());
-
                 HUD->SetCurrentStamina(PS->GetCurrentStamina());
                 HUD->SetMaxStamina(PS->GetMaxStamina());
                 HUD->SetCurrentMoney(PS->GetCurrentMoney());
