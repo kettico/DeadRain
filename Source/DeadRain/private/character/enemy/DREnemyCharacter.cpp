@@ -2,6 +2,7 @@
 #include "gas/attribute/DRCharacterSet.h"
 #include "gas/DRAbilitySystemComponent.h"
 #include "ui/character/DRFloatingWidget.h"
+#include "world/DRGameMode.h"
 
 ADREnemyCharacter::ADREnemyCharacter(){
     PrimaryActorTick.bCanEverTick = true;
@@ -55,5 +56,13 @@ void ADREnemyCharacter::InitializeGAS() {
 
  void ADREnemyCharacter::Die() {
        Super::Die();
+
+        if (GetWorld() && GetWorld()->GetAuthGameMode()){
+            if (ADRGameMode* GM = Cast<ADRGameMode>(GetWorld()->GetAuthGameMode())){
+                GM->HandleCharacterDeath(this);
+            }
+        }
+
+       
        Destroy();
     }

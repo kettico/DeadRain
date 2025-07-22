@@ -6,6 +6,7 @@
 #include "ui/character/DRFloatingWidget.h"
 #include "Components/WidgetComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "gas/DRGameplayAbility.h"
 
 #pragma region CORE
     ADRBaseCharacter::ADRBaseCharacter()
@@ -173,7 +174,7 @@ void ADRBaseCharacter::InitializeGAS(){
 	}
 
     // Add Startup Abilities
-    for (TSubclassOf<UGameplayAbility> Ability :  StartupAbilities){
+    for (TSubclassOf<UDRGameplayAbility> Ability :  StartupAbilities){
         AddAbilityToSelf(Ability);
     }
 
@@ -219,28 +220,34 @@ void ADRBaseCharacter::InitializeGAS(){
         }
     }
 
-    void ADRBaseCharacter::AddAbilityToSelf(TSubclassOf<UGameplayAbility> NewAbilityClass){
-        if (!AbilitySystemComponent || !NewAbilityClass) return;
+    bool ADRBaseCharacter::AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass){
+        if (!AbilitySystemComponent || !NewAbilityClass) return false;
         UE_LOG(LogTemp, Log, TEXT("[%s] - %s Adding Ability on self"), TEXT(__FUNCTION__), *GetName());
 
         
-        FGameplayAbilitySpec Spec(NewAbilityClass, 1, static_cast<int32>(INDEX_NONE), this);
+        FGameplayAbilitySpec Spec(static_cast<TSubclassOf<UGameplayAbility>>(NewAbilityClass), 1, INDEX_NONE, this);
+
         AbilitySystemComponent->GiveAbility(Spec);
+
+        return true;
     }
 
-    void ADRBaseCharacter::AddAbilityToTarget(TSubclassOf<UGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter){
-        if (!AbilitySystemComponent || !TargetCharacter || !NewAbilityClass) return;
+    bool ADRBaseCharacter::AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter){
+        if (!AbilitySystemComponent || !TargetCharacter || !NewAbilityClass) return false;
         UE_LOG(LogTemp, Log, TEXT("[%s] - %s Adding Ability on %s"), TEXT(__FUNCTION__), *GetName(), *TargetCharacter->GetName());
 
         
         UAbilitySystemComponent* TargetASC = TargetCharacter->GetAbilitySystemComponent();
         if (!TargetASC || !HasAuthority())
-            return;
+            return false;
 
         UE_LOG(LogTemp, Log, TEXT("[%s] - %s Adding Ability on %s"), TEXT(__FUNCTION__), *GetName(), *TargetCharacter->GetName());
 
-        FGameplayAbilitySpec Spec(NewAbilityClass, 1, INDEX_NONE, this);
+        FGameplayAbilitySpec Spec(static_cast<TSubclassOf<UGameplayAbility>>(NewAbilityClass), 1, INDEX_NONE, this);
+
         TargetASC->GiveAbility(Spec);
+
+        return true;
     }
 
 

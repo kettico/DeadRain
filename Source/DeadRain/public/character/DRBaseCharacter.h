@@ -97,11 +97,12 @@ public:
     void ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass);
 
     UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-    void AddAbilityToSelf(TSubclassOf<UGameplayAbility> NewAbilityClass);
+    virtual bool AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass);
     UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-    void AddAbilityToTarget(TSubclassOf<UGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter);
+    virtual bool AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter);
 
-
+    UFUNCTION(BlueprintCallable, Category = "DEADRAIN|GAS|Startup")
+	TArray<TSubclassOf<UDRGameplayAbility>> GetStartupAbilities() const { return StartupAbilities;}
 
     virtual void Die();
 protected:
@@ -115,7 +116,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
 	TArray<TSubclassOf<UGameplayEffect>> StartupEffects;
     UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
-	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+	TArray<TSubclassOf<UDRGameplayAbility>> StartupAbilities;
+
+    
 
     virtual void InitializeGAS();
 

@@ -6,13 +6,16 @@
 #include "GameFramework/GameModeBase.h"
 #include "DRGameMode.generated.h"
 
-/**
- * 
- */
+class ADRBaseCharacter;
+
+
 UCLASS()
 class DEADRAIN_API ADRGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 public:
 	ADRGameMode();
+
+	UFUNCTION()
+	void HandleCharacterDeath(ADRBaseCharacter* DeadCharacter);
 };

@@ -11,6 +11,8 @@
 #include "ui/character/DRHUDWidget.h"
 #include "GAS/DRGameplayAbility.h"
 
+
+
 #pragma region CORE
     ADRPlayerCharacter::ADRPlayerCharacter(){
         SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
@@ -225,6 +227,27 @@
     #pragma endregion
 
     #pragma region ABILITIES
+
+        bool ADRPlayerCharacter::AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass){
+            if (!Super::AddAbilityToSelf(NewAbilityClass)) return false;
+
+            // UPDATE UI
+            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetController())){
+                if (UDRHUDWidget* HUD = PC->GetHUD()){
+                    HUD->AddAbility(NewAbilityClass);
+                }
+            }
+
+            return true;
+        }
+
+        bool ADRPlayerCharacter::AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter){
+            if (!Super::AddAbilityToTarget(NewAbilityClass,TargetCharacter)) return false;
+
+            return true;
+        }
+
+
     void ADRPlayerCharacter::ActivateAbilityByIndex(int32 Index){
         if (AbilityHandles.IsValidIndex(Index) && AbilityHandles[Index].IsValid())
         {

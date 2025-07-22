@@ -82,6 +82,11 @@ protected:
     public:
         UFUNCTION(BlueprintCallable)
         void ActivateAbilityByIndex(int32 Index);
+
+        virtual bool AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass) override ;
+        virtual bool AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter) override;
+
+
     protected:
         UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "DeadRain|GAS|Abilities")
         TArray<TSubclassOf<UDRGameplayAbility>> AbilitySlots;

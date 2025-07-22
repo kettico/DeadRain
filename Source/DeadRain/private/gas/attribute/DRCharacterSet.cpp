@@ -178,3 +178,7 @@ void UDRCharacterSet::OnRep_CurrentMoney(const FGameplayAttributeData& OldValue)
     GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentMoney, OldValue);
 }
 
+void UDRCharacterSet::OnRep_AbilityHaste(const FGameplayAttributeData& OldValue){
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, AbilityHaste, OldValue);
+}
+

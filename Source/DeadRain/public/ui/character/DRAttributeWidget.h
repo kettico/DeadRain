@@ -43,6 +43,9 @@ protected:
     float CurrentMana = 0.0f;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     float MaxMana = 0.0f;
+
+
+
     
 
 };

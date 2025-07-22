@@ -1,6 +1,8 @@
 #include "character/player/DRPlayerController.h"
 #include "ui/character/DRHUDWidget.h"
 #include "character/player/DRPlayerState.h"
+#include "character/DRBaseCharacter.h"
+#include "GAS/DRGameplayAbility.h"
 
 #pragma region CORE
     ADRPlayerController::ADRPlayerController(){
@@ -45,6 +47,8 @@
         if (!HUD)
             HUD = CreateWidget<UDRHUDWidget>(this, HUDClass);
 
+            
+
         
         if(HUD){
             HUD->AddToViewport();
@@ -61,6 +65,13 @@
                 HUD->SetCurrentMana(PS->GetCurrentMana());
                 HUD->SetMaxMana(PS->GetMaxMana());
                 HUD->SetCurrentMoney(PS->GetCurrentMoney());
+
+                if (ADRBaseCharacter* PC = Cast<ADRBaseCharacter>(GetPawn())){
+                    for(TSubclassOf<UDRGameplayAbility> Ability: PC->GetStartupAbilities()){
+                        HUD->AddAbility(Ability);
+                    }
+                }
+                
             }
         }
     }
