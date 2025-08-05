@@ -82,6 +82,18 @@ public:
     #pragma endregion
 
 
+    #pragma region Weapon
+        UPROPERTY(BlueprintReadOnly, Category = "Ability", ReplicatedUsing = OnRep_AttackSpeed)
+        FGameplayAttributeData AttackSpeed;
+        ATTRIBUTE_ACCESSORS(UDRCharacterSet, AttackSpeed)
+    #pragma endregion 
+
+    #pragma region Movement
+        UPROPERTY(BlueprintReadOnly, Category = "Ability", ReplicatedUsing = OnRep_MoveSpeed)
+        FGameplayAttributeData MoveSpeed;
+        ATTRIBUTE_ACCESSORS(UDRCharacterSet, MoveSpeed)
+    #pragma endregion 
+
     
 
 protected:
@@ -127,6 +139,16 @@ protected:
     #pragma region ABILITIES
         UFUNCTION()
         void OnRep_AbilityHaste(const FGameplayAttributeData& OldValue);
+    #pragma endregion
+
+    #pragma region Weapon
+        UFUNCTION()
+        void OnRep_AttackSpeed(const FGameplayAttributeData& OldValue);
+    #pragma endregion
+
+    #pragma region Movement
+        UFUNCTION()
+        void OnRep_MoveSpeed(const FGameplayAttributeData& OldValue);
     #pragma endregion
 
 };

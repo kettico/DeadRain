@@ -4,65 +4,62 @@
 #include "ui/character/DRFloatingWidget.h"
 #include "world/DRGameMode.h"
 
-ADREnemyCharacter::ADREnemyCharacter(){
-    PrimaryActorTick.bCanEverTick = true;
 
-    AbilitySystemComponent = CreateDefaultSubobject<UDRAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-    AbilitySystemComponent->SetIsReplicated(true);
-    AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+#pragma region CORE
+    ADREnemyCharacter::ADREnemyCharacter(){
+        PrimaryActorTick.bCanEverTick = true;
 
-    CharacterSet = CreateDefaultSubobject<UDRCharacterSet>(TEXT("CharacterSet"));
+        AbilitySystemComponent = CreateDefaultSubobject<UDRAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+        AbilitySystemComponent->SetIsReplicated(true);
+        AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
-    SetNetUpdateFrequency(100.0f);
-}
+        CharacterSet = CreateDefaultSubobject<UDRCharacterSet>(TEXT("CharacterSet"));
 
-void ADREnemyCharacter::Tick(float DeltaTime){
-    Super::Tick(DeltaTime);
-}
-
-
-void ADREnemyCharacter::OnConstruction(const FTransform& Transform){
-    Super::OnConstruction(Transform);
-
-    
-}
-
-
-void ADREnemyCharacter::BeginPlay(){
-    Super::BeginPlay();
-
-    InitializeGAS();
-
-    if (FloatingWidget && CharacterSet){
-        FloatingWidget->SetCurrentHealth(CharacterSet->GetCurrentHealth());
-        FloatingWidget->SetMaxHealth(CharacterSet->GetMaxHealth());
+        SetNetUpdateFrequency(100.0f);
     }
 
-}
-
-
-
-
-void ADREnemyCharacter::InitializeGAS() {
-    if (GetLocalRole() != ROLE_Authority)
-        return;
-
-    // Only configure or initialize here, do not create subobjects
-    if (AbilitySystemComponent && CharacterSet) {
-        AbilitySystemComponent->InitAbilityActorInfo(this, this);
-        Super::InitializeGAS();
+    void ADREnemyCharacter::Tick(float DeltaTime){
+        Super::Tick(DeltaTime);
     }
-}
 
- void ADREnemyCharacter::Die() {
-       Super::Die();
 
-        if (GetWorld() && GetWorld()->GetAuthGameMode()){
-            if (ADRGameMode* GM = Cast<ADRGameMode>(GetWorld()->GetAuthGameMode())){
-                GM->HandleCharacterDeath(this);
-            }
+    void ADREnemyCharacter::OnConstruction(const FTransform& Transform){
+        Super::OnConstruction(Transform);
+
+        
+    }
+
+    void ADREnemyCharacter::BeginPlay(){
+        Super::BeginPlay();
+        InitializeGAS();
+    }
+
+#pragma endregion
+
+
+
+
+
+#pragma region GAS
+    void ADREnemyCharacter::InitializeGAS() {
+        if (GetLocalRole() != ROLE_Authority)
+            return;
+
+        // Only configure or initialize here, do not create subobjects
+        if (AbilitySystemComponent && CharacterSet) {
+            AbilitySystemComponent->InitAbilityActorInfo(this, this);
+            Super::InitializeGAS();
         }
-
-       
-       Destroy();
     }
+
+    void ADREnemyCharacter::Die() {
+        Super::Die();
+
+            if (GetWorld() && GetWorld()->GetAuthGameMode()){
+                if (ADRGameMode* GM = Cast<ADRGameMode>(GetWorld()->GetAuthGameMode())){
+                    GM->HandleCharacterDeath(this);
+                }
+            }
+        Destroy();
+    }
+#pragma endregion

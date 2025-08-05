@@ -1,13 +1,27 @@
 #include "ui/character/DRHUDWidget.h"
-#include "ui/character/DRAttributeWidget.h"
-
 #include "interaction/DRInteractableActor.h"
 #include "ui/character/DRAbilityBarWidget.h"
+#include "ui/character/DRSimpleAttributeWidget.h"
+#include "ui/character/DRFullAttributeWidget.h"
+#include "gas/DRAbilitySystemComponent.h"
 
-#include "ui/character/DRStatWidget.h"
+
 
 void UDRHUDWidget::NativeConstruct(){
     Super::NativeConstruct();
+}
+
+void UDRHUDWidget::SetAbilitySystemComponent(UDRAbilitySystemComponent* asc){
+    if (!asc) return;
+    ASC = asc;
+    if (!ASC.IsValid()) return;
+
+    if (SimpleAttributeWidget) 
+        SimpleAttributeWidget->SetAbilitySystemComponent(ASC.Get());
+    if (FullAttributeWidget) 
+        FullAttributeWidget->SetAbilitySystemComponent(ASC.Get());
+
+    
 }
 
 
@@ -25,72 +39,3 @@ void UDRHUDWidget::NativeConstruct(){
 
 
 
-
-
-
-#pragma region ATTRIBUTES
-
-    #pragma region HEALTH
-        void UDRHUDWidget::SetCurrentHealth_Implementation(float NewValue){
-            CurrentHealth = NewValue;
-        }
-        void UDRHUDWidget::SetMaxHealth_Implementation(float NewValue){
-            MaxHealth = NewValue;
-        }
-        void UDRHUDWidget::SetHealthRegen_Implementation(float NewValue){
-            HealthRegen = NewValue;
-        }
-    #pragma endregion
-
-    #pragma region Stamina 
-            void UDRHUDWidget::SetCurrentStamina_Implementation(float NewValue){
-            CurrentStamina = NewValue;
-        }
-            void UDRHUDWidget::SetMaxStamina_Implementation(float NewValue){
-            MaxStamina = NewValue;
-        }
-            void UDRHUDWidget::SetStaminaRegen_Implementation(float NewValue){
-            StaminaRegen = NewValue;
-        }
-    #pragma endregion
-
-    #pragma region Mana  
-            void UDRHUDWidget::SetCurrentMana_Implementation(float NewValue){
-            CurrentMana = NewValue;
-        }
-            void UDRHUDWidget::SetMaxMana_Implementation(float NewValue){
-            MaxMana = NewValue;
-        }
-            void UDRHUDWidget::SetManaRegen_Implementation(float NewValue){
-            ManaRegen = NewValue;
-        }
-    #pragma endregion
-
-    #pragma region Money  
-        void UDRHUDWidget::SetCurrentMoney_Implementation(float NewValue){
-            CurrentMoney = NewValue;
-        }
-    #pragma endregion
-
-    #pragma region Ability  
-        void UDRHUDWidget::SetAbilityHaste_Implementation(float NewValue){
-            AbilityHaste = NewValue;
-        }
-    #pragma endregion
-
-
-#pragma endregion
-
-
-#pragma region INPUTS
-    void UDRHUDWidget::ToggleStatMenu() {
-        if (StatWidget) {
-            ESlateVisibility CurrentVisibility = StatWidget->GetVisibility();
-            StatWidget->SetVisibility(
-                CurrentVisibility == ESlateVisibility::Visible
-                ? ESlateVisibility::Collapsed
-                : ESlateVisibility::Visible
-            );
-        }
-    }
-#pragma endregion

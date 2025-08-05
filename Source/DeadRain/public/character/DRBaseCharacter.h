@@ -106,9 +106,9 @@ public:
 
     virtual void Die();
 protected:
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
     UDRAbilitySystemComponent* AbilitySystemComponent;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	UDRCharacterSet* CharacterSet;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")

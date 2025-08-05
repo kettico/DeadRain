@@ -29,31 +29,25 @@ class DEADRAIN_API ADRPlayerCharacter : public ADRBaseCharacter
         virtual void OnRep_PlayerState() override;
 
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
-        UCameraComponent* Camera;
+            UCameraComponent* Camera;
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
-        USpringArmComponent* SpringArm;
+            USpringArmComponent* SpringArm;
 
 #pragma endregion
 
 #pragma region INTERACTION
     public:
         UFUNCTION(BlueprintCallable, Category = "Interaction")
-        ADRInteractableActor* GetCurrentInteractable() const { return CurrentInteractable; }
+            ADRInteractableActor* GetCurrentInteractable() const { return CurrentInteractable; }
     protected:
         UFUNCTION(BlueprintCallable, Category = "Interaction")
-        void TickInteractionCheck();
+            void TickInteractionCheck();
 
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
-        ADRInteractableActor* CurrentInteractable = nullptr;    
-        
+            ADRInteractableActor* CurrentInteractable = nullptr;    
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
-        float InteractionDistance = 200.0f; // Distance to check for interactable actors
+            float InteractionDistance = 200.0f; // Distance to check for interactable actors
 
-
-
-
-        
-    
 #pragma endregion
 
 
@@ -63,34 +57,41 @@ public:
 protected:
     virtual void InitializeGAS() override;
     #pragma region ATTRIBUTES
-        virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data) override ;
-        virtual void MaxHealthChanged(const FOnAttributeChangeData& Data) override ;
-        virtual void HealthRegenChanged(const FOnAttributeChangeData& Data) override ;
+        #pragma region HEALTH
+            virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data) override ;
+            virtual void MaxHealthChanged(const FOnAttributeChangeData& Data) override ;
+            virtual void HealthRegenChanged(const FOnAttributeChangeData& Data) override ;
+        #pragma endregion
 
-        virtual void CurrentStaminaChanged(const FOnAttributeChangeData& Data) override ;
-        virtual void MaxStaminaChanged(const FOnAttributeChangeData& Data) override ;
-        virtual void StaminaRegenChanged(const FOnAttributeChangeData& Data) override ;
+        #pragma region STAMINA
+            virtual void CurrentStaminaChanged(const FOnAttributeChangeData& Data) override ;
+            virtual void MaxStaminaChanged(const FOnAttributeChangeData& Data) override ;
+            virtual void StaminaRegenChanged(const FOnAttributeChangeData& Data) override ;
+        #pragma endregion
 
-        virtual void CurrentManaChanged(const FOnAttributeChangeData& Data) override ;
-        virtual void MaxManaChanged(const FOnAttributeChangeData& Data) override ;
-        virtual void ManaRegenChanged(const FOnAttributeChangeData& Data) override ;
-
+        #pragma region MANA
+            virtual void CurrentManaChanged(const FOnAttributeChangeData& Data) override ;
+            virtual void MaxManaChanged(const FOnAttributeChangeData& Data) override ;
+            virtual void ManaRegenChanged(const FOnAttributeChangeData& Data) override ;
+        #pragma endregion
     #pragma endregion
 
     #pragma region ABILITIES
 
     public:
         UFUNCTION(BlueprintCallable)
-        void ActivateAbilityByIndex(int32 Index);
-
-        virtual bool AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass) override ;
-        virtual bool AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter) override;
+            void ActivateAbilityByIndex(int32 Index);
+        UFUNCTION(BlueprintCallable)
+            virtual bool AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass) override ;
+        UFUNCTION(BlueprintCallable)
+            virtual bool AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter) override;
 
 
     protected:
         UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "DeadRain|GAS|Abilities")
-        TArray<TSubclassOf<UDRGameplayAbility>> AbilitySlots;
-        TArray<FGameplayAbilitySpecHandle> AbilityHandles;
+            TArray<TSubclassOf<UDRGameplayAbility>> AbilitySlots;
+        UPROPERTY()
+            TArray<FGameplayAbilitySpecHandle> AbilityHandles;
 
     #pragma endregion
 

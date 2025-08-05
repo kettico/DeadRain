@@ -54,17 +54,8 @@
             HUD->AddToViewport();
 
             if (ADRPlayerState* PS = GetPlayerState<ADRPlayerState>()){
-                HUD->SetCurrentHealth(PS->GetCurrentHealth());
-                HUD->SetMaxHealth(PS->GetMaxHealth());
-                HUD->SetCurrentMoney(PS->GetCurrentMoney());
+                HUD->SetAbilitySystemComponent(PS->GetDRAbilitySystemComponent());
 
-                HUD->SetCurrentStamina(PS->GetCurrentStamina());
-                HUD->SetMaxStamina(PS->GetMaxStamina());
-                HUD->SetCurrentMoney(PS->GetCurrentMoney());
-
-                HUD->SetCurrentMana(PS->GetCurrentMana());
-                HUD->SetMaxMana(PS->GetMaxMana());
-                HUD->SetCurrentMoney(PS->GetCurrentMoney());
 
                 if (ADRBaseCharacter* PC = Cast<ADRBaseCharacter>(GetPawn())){
                     for(TSubclassOf<UDRGameplayAbility> Ability: PC->GetStartupAbilities()){

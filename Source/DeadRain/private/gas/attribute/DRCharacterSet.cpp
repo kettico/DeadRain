@@ -27,6 +27,12 @@ void UDRCharacterSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, ManaRegen, COND_None, REPNOTIFY_Always);
 
 	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, CurrentMoney, COND_None, REPNOTIFY_Always);
+
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, AbilityHaste, COND_None, REPNOTIFY_Always);
+
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, AttackSpeed, COND_None, REPNOTIFY_Always);
+
+	DOREPLIFETIME_CONDITION_NOTIFY(UDRCharacterSet, MoveSpeed, COND_None, REPNOTIFY_Always);
 }
 
 void UDRCharacterSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue){
@@ -117,7 +123,6 @@ void UDRCharacterSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 	} else if (Data.EvaluatedData.Attribute == GetCurrentManaAttribute()){
 		SetCurrentMana(FMath::Clamp(GetCurrentMana(), 0.0f, GetMaxMana()));
 	}
-
 }
 
 // THIS DOESNT WORK
@@ -141,44 +146,62 @@ void UDRCharacterSet::OnRep_IncomingDamage(const FGameplayAttributeData& OldValu
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, IncomingDamage, OldValue);
 }
 
-void UDRCharacterSet::OnRep_CurrentHealth(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentHealth, OldValue);
-}
-void UDRCharacterSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, MaxHealth, OldValue);
-}
-void UDRCharacterSet::OnRep_HealthRegen(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, HealthRegen, OldValue);
-}
+#pragma region Stamina
+	void UDRCharacterSet::OnRep_CurrentHealth(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentHealth, OldValue);
+	}
+	void UDRCharacterSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, MaxHealth, OldValue);
+	}
+	void UDRCharacterSet::OnRep_HealthRegen(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, HealthRegen, OldValue);
+	}
+#pragma endregion
 
+#pragma region Stamina
+	void UDRCharacterSet::OnRep_CurrentStamina(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentStamina, OldValue);
+	}
+	void UDRCharacterSet::OnRep_MaxStamina(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, MaxStamina, OldValue);
+	}
+	void UDRCharacterSet::OnRep_StaminaRegen(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, StaminaRegen, OldValue);
+	}
+#pragma endregion
 
-// STAMINA ----------------------------------------------------------------
-void UDRCharacterSet::OnRep_CurrentStamina(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentStamina, OldValue);
-}
-void UDRCharacterSet::OnRep_MaxStamina(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, MaxStamina, OldValue);
-}
-void UDRCharacterSet::OnRep_StaminaRegen(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, StaminaRegen, OldValue);
-}
+#pragma region Mana
+	void UDRCharacterSet::OnRep_CurrentMana(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentMana, OldValue);
+	}
+	void UDRCharacterSet::OnRep_MaxMana(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, MaxMana, OldValue);
+	}
+	void UDRCharacterSet::OnRep_ManaRegen(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, ManaRegen, OldValue);
+	}
+#pragma endregion
 
-// Mana ----------------------------------------------------------------
-void UDRCharacterSet::OnRep_CurrentMana(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentMana, OldValue);
-}
-void UDRCharacterSet::OnRep_MaxMana(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, MaxMana, OldValue);
-}
-void UDRCharacterSet::OnRep_ManaRegen(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, ManaRegen, OldValue);
-}
+#pragma region Money
+	void UDRCharacterSet::OnRep_CurrentMoney(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentMoney, OldValue);
+	}
+#pragma endregion
 
-void UDRCharacterSet::OnRep_CurrentMoney(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, CurrentMoney, OldValue);
-}
+#pragma region Abilities
+	void UDRCharacterSet::OnRep_AbilityHaste(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, AbilityHaste, OldValue);
+	}
+#pragma endregion
 
-void UDRCharacterSet::OnRep_AbilityHaste(const FGameplayAttributeData& OldValue){
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, AbilityHaste, OldValue);
-}
+#pragma region Weapon
+	void UDRCharacterSet::OnRep_AttackSpeed(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, AttackSpeed, OldValue);
+	}
+#pragma endregion
 
+#pragma region Movement
+	void UDRCharacterSet::OnRep_MoveSpeed(const FGameplayAttributeData& OldValue){
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UDRCharacterSet, MoveSpeed, OldValue);
+	}
+#pragma endregion

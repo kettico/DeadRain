@@ -24,24 +24,13 @@ class DEADRAIN_API ADREnemyCharacter : public ADRBaseCharacter
     protected:
         virtual void BeginPlay() override;
         virtual void OnConstruction(const FTransform& Transform) override;
-
-
 #pragma endregion
 
 #pragma region GAS
-public:
-    virtual void Die() override;
-protected:
-
-#pragma endregion
-
-#pragma region INTERACTION
     public:
-
+        virtual void Die() override;
     protected:
-
         virtual void InitializeGAS() override;
-
 #pragma endregion
 
 };

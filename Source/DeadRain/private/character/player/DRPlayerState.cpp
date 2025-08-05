@@ -28,8 +28,11 @@
 
 #pragma region GAS
 
+    UAbilitySystemComponent* ADRPlayerState::GetAbilitySystemComponent() const {
+        return AbilitySystemComponent;
+    }
 
-    UAbilitySystemComponent* ADRPlayerState::GetAbilitySystemComponent() const{
+    UDRAbilitySystemComponent* ADRPlayerState::GetDRAbilitySystemComponent() const{
         return AbilitySystemComponent;
     }
 
@@ -84,16 +87,7 @@
 
 
         void ADRPlayerState::CurrentMoneyChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
 
-            UE_LOG( LogTemp, Warning, TEXT("CurrentMoneyChanged: %f"), Data.NewValue);
-            float CurrentMoney = Data.NewValue;
-            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetOwner())){
-                if (UDRHUDWidget* HUD = PC->GetHUD()){
-                    HUD->SetCurrentMoney(CurrentMoney);
-                }
-
-            }
         }
 
     #pragma endregion

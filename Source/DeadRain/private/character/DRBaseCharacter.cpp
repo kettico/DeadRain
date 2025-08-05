@@ -90,7 +90,6 @@
     }
 
     void ADRBaseCharacter::UnEquipWeapon(){
-        UE_LOG(LogTemp, Log, TEXT("[%s]"), TEXT(__FUNCTION__));
 
         if (CurrentWeapon) return;
     }
@@ -178,7 +177,9 @@ void ADRBaseCharacter::InitializeGAS(){
         AddAbilityToSelf(Ability);
     }
 
-
+    if (FloatingWidget){
+        FloatingWidget->SetAbilitySystemComponent(AbilitySystemComponent);
+    }
 }
 
     void ADRBaseCharacter::ApplyGameplayEffectToTarget(
@@ -250,87 +251,46 @@ void ADRBaseCharacter::InitializeGAS(){
         return true;
     }
 
-
-
     void ADRBaseCharacter::Die() {
         UE_LOG(LogTemp, Error, TEXT("%s Died "), *GetName());
     }
 
-
     #pragma region ATTRIBUTES
         void ADRBaseCharacter::CurrentHealthChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
-            
-            float CurrentHealth = Data.NewValue;
 
-            if (FloatingWidget){
-                FloatingWidget->SetCurrentHealth(CurrentHealth);
-            }
         }
 
         
         void ADRBaseCharacter::MaxHealthChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
 
-            float MaxHealth = Data.NewValue;
-
-            if (FloatingWidget){
-                FloatingWidget->SetMaxHealth(MaxHealth);
-            }
         }
 
 
         void ADRBaseCharacter::HealthRegenChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
-
-
         }
 
         // STAMINA
-                void ADRBaseCharacter::CurrentStaminaChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
-            
-            float CurrentStamina = Data.NewValue;
-
+        void ADRBaseCharacter::CurrentStaminaChanged(const FOnAttributeChangeData& Data){
         }
 
         
         void ADRBaseCharacter::MaxStaminaChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
-
-            float MaxStamina = Data.NewValue;
-
         }
 
 
         void ADRBaseCharacter::StaminaRegenChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
-
-
         }
 
-                // Mana
-                void ADRBaseCharacter::CurrentManaChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
-            
-            float CurrentMana = Data.NewValue;
-
+        // Mana
+        void ADRBaseCharacter::CurrentManaChanged(const FOnAttributeChangeData& Data){
         }
 
         
         void ADRBaseCharacter::MaxManaChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
-
-            float MaxMana = Data.NewValue;
-
-
         }
 
 
         void ADRBaseCharacter::ManaRegenChanged(const FOnAttributeChangeData& Data){
-            UE_LOG(LogTemp, Log, TEXT("[%s] - [%s]"), TEXT(__FUNCTION__), *GetName());
-
-
         }
 
     #pragma endregion
