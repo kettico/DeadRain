@@ -81,10 +81,9 @@ protected:
     public:
         UFUNCTION(BlueprintCallable)
             void ActivateAbilityByIndex(int32 Index);
-        UFUNCTION(BlueprintCallable)
-            virtual bool AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass) override ;
-        UFUNCTION(BlueprintCallable)
-            virtual bool AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter) override;
+            
+        virtual bool AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass) override ;
+        virtual bool AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter) override;
 
 
     protected:
