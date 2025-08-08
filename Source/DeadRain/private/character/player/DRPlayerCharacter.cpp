@@ -20,6 +20,7 @@
 
         Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
         Camera->SetupAttachment(SpringArm);
+
     }
     void ADRPlayerCharacter::Tick(float DeltaTime){
         Super::Tick(DeltaTime);
@@ -100,6 +101,8 @@
         }
     }
 
+#pragma endregion
+#pragma region "GAS"
     void ADRPlayerCharacter::InitializeGAS(){
         
         if (ADRPlayerState* PS = GetPlayerState<ADRPlayerState>()){
@@ -113,17 +116,6 @@
             if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetController())) {
                 
             }
-
-            // Initialize Abilities if Preset in Character
-            for (int32 i = 0; i < AbilitySlots.Num(); ++i)
-            {
-                if (AbilitySlots[i])
-                {
-                    FGameplayAbilitySpec Spec(AbilitySlots[i], 1, i); // Index = InputID
-                    FGameplayAbilitySpecHandle Handle = AbilitySystemComponent->GiveAbility(Spec);
-                    AbilityHandles.Add(Handle);
-                }
-            }
         }
     }
 
@@ -134,7 +126,7 @@
     #pragma region ATTRIBUTES
             #pragma region HEALTH
                 void ADRPlayerCharacter::CurrentHealthChanged(const FOnAttributeChangeData& Data){
-                    Super::CurrentHealthChanged(Data);
+                    Super::CurrentHealthChanged(Data); // Base calls Die()
 
                 }
 
@@ -178,31 +170,7 @@
 
     #pragma region ABILITIES
 
-        bool ADRPlayerCharacter::AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass){
-            if (!Super::AddAbilityToSelf(NewAbilityClass)) return false;
-
-            // UPDATE UI
-            if (ADRPlayerController* PC = Cast<ADRPlayerController>(GetController())){
-                if (UDRHUDWidget* HUD = PC->GetHUD()){
-                    HUD->AddAbility(NewAbilityClass);
-                }
-            }
-
-            return true;
-        }
-
-        bool ADRPlayerCharacter::AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter){
-            if (!Super::AddAbilityToTarget(NewAbilityClass,TargetCharacter)) return false;
-
-            return true;
-        }
 
 
-    void ADRPlayerCharacter::ActivateAbilityByIndex(int32 Index){
-        if (AbilityHandles.IsValidIndex(Index) && AbilityHandles[Index].IsValid())
-        {
-            AbilitySystemComponent->TryActivateAbility(AbilityHandles[Index]);
-        }
-    }
     #pragma endregion
 #pragma endregion

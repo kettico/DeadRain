@@ -58,9 +58,11 @@
 
 
                 if (ADRBaseCharacter* PC = Cast<ADRBaseCharacter>(GetPawn())){
+                    /*
                     for(TSubclassOf<UDRGameplayAbility> Ability: PC->GetStartupAbilities()){
                         HUD->AddAbility(Ability);
                     }
+                    */
                 }
                 
             }

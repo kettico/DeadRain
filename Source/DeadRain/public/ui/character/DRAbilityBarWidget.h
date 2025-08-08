@@ -5,19 +5,8 @@
 #include "DRAbilityBarWidget.generated.h"
 
 class UDRGameplayAbility;
+class UDRAbilitySlotWidget;
 
-UCLASS()
-class DEADRAIN_API UDRAbilitySlotWidget : public UUserWidget
-{
-    GENERATED_BODY()
-
-public:
-    UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-    void SetAbility(TSubclassOf<UDRGameplayAbility> NewValue);
-
-protected:
-
-};
 
 UCLASS()
 class DEADRAIN_API UDRAbilityBarWidget : public UUserWidget

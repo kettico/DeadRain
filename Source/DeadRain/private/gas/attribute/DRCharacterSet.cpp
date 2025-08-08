@@ -40,9 +40,11 @@ void UDRCharacterSet::PreAttributeChange(const FGameplayAttribute& Attribute, fl
 
     // On Max Change, adjust Current so it is the same % 
     if (Attribute == GetMaxHealthAttribute()) {
-        //AdjustAttributeForMaxChange(CurrentHealth, MaxHealth, NewValue, GetCurrentHealthAttribute());
+        AdjustAttributeForMaxChange(CurrentHealth, MaxHealth, NewValue, GetCurrentHealthAttribute());
     } else if (Attribute == GetMaxStaminaAttribute()) {
+		AdjustAttributeForMaxChange(CurrentStamina, MaxStamina, NewValue, GetCurrentStaminaAttribute());
 	} else if (Attribute == GetMaxManaAttribute()) {
+		AdjustAttributeForMaxChange(CurrentMana, MaxMana, NewValue, GetCurrentManaAttribute());
 	}
 }
 
@@ -106,15 +108,44 @@ void UDRCharacterSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 		if (LocalIncomingDamage > 0.0f){
 			SetIncomingDamage(0.0f);
 
+			if (!TargetCharacter)
+				return;
+			if (!TargetCharacter->IsAlive())
+				return;
+
 			const float OldHealth = GetCurrentHealth();
             const float NewHealth = FMath::Clamp(OldHealth - LocalIncomingDamage, 0.0f, GetMaxHealth());
             SetCurrentHealth(NewHealth);
 
-            // Optional: Add logic for OnDeath or low health here
-            if (OldHealth > 0.0f && NewHealth <= 0.0f)
-            {
-                TargetCharacter->Die();
-            }
+            if (SourceActor != TargetActor){
+				// SHOW DAMAGE NUMBER
+			}
+
+			// On Kill
+			if (NewHealth <= 0.0f){
+
+				if (SourceController != TargetController){
+						UGameplayEffect* GEBounty = NewObject<UGameplayEffect>(GetTransientPackage(), FName(TEXT("Bounty")));
+						GEBounty->DurationPolicy = EGameplayEffectDurationType::Instant;
+
+						GEBounty->Modifiers.SetNum(1);
+
+						/**
+						FGameplayModifierInfo& InfoXP = GEBounty->Modifiers[Idx];
+						InfoXP.ModifierMagnitude = FScalableFloat(GetXPBounty());
+						InfoXP.ModifierOp = EGameplayModOp::Additive;
+						InfoXP.Attribute = UDRCharacterSet::GetXPAttribute();
+						*/
+
+						FGameplayModifierInfo& InfoGold = GEBounty->Modifiers[0];
+						InfoGold.ModifierMagnitude = FScalableFloat(20.0f);
+						InfoGold.ModifierOp = EGameplayModOp::Additive;
+						InfoGold.Attribute = UDRCharacterSet::GetCurrentMoneyAttribute();
+
+						Source->ApplyGameplayEffectToSelf(GEBounty, 1.0f, Source->MakeEffectContext());
+						UE_LOG(LogTemp, Error, TEXT("Applied Bounty!") );
+				}
+			}
 		}
 	} else if (Data.EvaluatedData.Attribute == GetCurrentHealthAttribute()){
 		SetCurrentHealth(FMath::Clamp(GetCurrentHealth(), 0.0f, GetMaxHealth()));
@@ -129,6 +160,8 @@ void UDRCharacterSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 void UDRCharacterSet::AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty){
 	UAbilitySystemComponent* AbilityComp = GetOwningAbilitySystemComponent();
 	const float CurrentMaxValue = MaxAttribute.GetCurrentValue();
+	if (CurrentMaxValue <= 0) return;
+
 	if (!FMath::IsNearlyEqual(CurrentMaxValue, NewMaxValue) && AbilityComp)
 	{
 		// Change current value to maintain the current Val / Max percent

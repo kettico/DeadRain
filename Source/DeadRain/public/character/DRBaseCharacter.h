@@ -14,9 +14,12 @@ class UGameplayEffect;
 class UDRItemManager;
 class ADRItem;
 class ADRWeapon;
+class UDRAbilitySlot;
 
 class UDRFloatingWidget;
 class UWidgetComponent;
+
+
 UCLASS()
 class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
@@ -75,81 +78,80 @@ class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemIn
         void ActivateWeaponTertiary();
 
     protected:
+        virtual void InitializeGAS();
+
         UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
         ADRWeapon* CurrentWeapon;
 #pragma endregion
 
-#pragma region GAS
+#pragma region "GAS"
+    public:
+        virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+        virtual void Die();
+    protected:
+        UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+            UDRAbilitySystemComponent* AbilitySystemComponent;
+    #pragma region "Ability"
+        public:
+            UFUNCTION(BlueprintCallable)
+                virtual TArray<UDRAbilitySlot*> GetAbilitySlots() const {return AbilitySlots;}
+            UFUNCTION(BlueprintCallable)
+                virtual UDRAbilitySlot* GetAbilitySlotByIndex(int32 idx) const;
+        protected:
+            UPROPERTY()
+                TArray<UDRAbilitySlot*> AbilitySlots;
 
-public:
-    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+    #pragma endregion
+    #pragma region "Attributes"
+        public:
+            UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+                bool IsAlive() const{return GetCurrentHealth() > 0.0f;}
 
-    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-	float GetCurrentHealth() const;
-    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-	float GetCurrentStamina() const;
-    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-	float GetCurrentMana() const;
+            UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+                float GetCurrentHealth() const;
+            UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+                float GetCurrentStamina() const;
+            UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+                float GetCurrentMana() const;
 
-    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-    void ApplyGameplayEffectToTarget( TSubclassOf<UGameplayEffect> GameplayEffectClass, ADRBaseCharacter* TargetCharacter);
-    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-    void ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass);
+            UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+                void ApplyGameplayEffectToTarget( TSubclassOf<UGameplayEffect> GameplayEffectClass, ADRBaseCharacter* TargetCharacter);
+            UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
+                void ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass);
 
-    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-    virtual bool AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass);
-    UFUNCTION(BlueprintCallable, Category = "GAS|Character|Attributes")
-    virtual bool AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter);
+        protected:
+            UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+                UDRCharacterSet* CharacterSet;
+            UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
+                TSubclassOf<UGameplayEffect> StartupAttributes;
+            UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
+                TArray<TSubclassOf<UGameplayEffect>> StartupEffects;
 
-    UFUNCTION(BlueprintCallable, Category = "DEADRAIN|GAS|Startup")
-	TArray<TSubclassOf<UDRGameplayAbility>> GetStartupAbilities() const { return StartupAbilities;}
-
-    virtual void Die();
-protected:
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
-    UDRAbilitySystemComponent* AbilitySystemComponent;
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
-	UDRCharacterSet* CharacterSet;
-
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
-	TSubclassOf<UGameplayEffect> StartupAttributes;
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
-	TArray<TSubclassOf<UGameplayEffect>> StartupEffects;
-    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "DEADRAIN|GAS|Startup")
-	TArray<TSubclassOf<UDRGameplayAbility>> StartupAbilities;
-
-    
-
-    virtual void InitializeGAS();
-
-
-    // HEALTH
-    FDelegateHandle CurrentHealthChangedDelegateHandle;
-    virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data);
-    FDelegateHandle MaxHealthChangedDelegateHandle;
-    virtual void MaxHealthChanged(const FOnAttributeChangeData& Data);
-    FDelegateHandle HealthRegenChangedDelegateHandle;
-    virtual void HealthRegenChanged(const FOnAttributeChangeData& Data);
-
-    // Stamina
-    FDelegateHandle CurrentStaminaChangedDelegateHandle;
-    virtual void CurrentStaminaChanged(const FOnAttributeChangeData& Data);
-    FDelegateHandle MaxStaminaChangedDelegateHandle;
-    virtual void MaxStaminaChanged(const FOnAttributeChangeData& Data);
-    FDelegateHandle StaminaRegenChangedDelegateHandle;
-    virtual void StaminaRegenChanged(const FOnAttributeChangeData& Data);
-
-        // Mana
-    FDelegateHandle CurrentManaChangedDelegateHandle;
-    virtual void CurrentManaChanged(const FOnAttributeChangeData& Data);
-    FDelegateHandle MaxManaChangedDelegateHandle;
-    virtual void MaxManaChanged(const FOnAttributeChangeData& Data);
-    FDelegateHandle ManaRegenChangedDelegateHandle;
-    virtual void ManaRegenChanged(const FOnAttributeChangeData& Data);
-
-
-
-
+            #pragma region "HEALTH"
+                FDelegateHandle CurrentHealthChangedDelegateHandle;
+                virtual void CurrentHealthChanged(const FOnAttributeChangeData& Data);
+                FDelegateHandle MaxHealthChangedDelegateHandle;
+                virtual void MaxHealthChanged(const FOnAttributeChangeData& Data);
+                FDelegateHandle HealthRegenChangedDelegateHandle;
+                virtual void HealthRegenChanged(const FOnAttributeChangeData& Data);
+            #pragma endregion
+            #pragma region "STAMINA"
+                FDelegateHandle CurrentStaminaChangedDelegateHandle;
+                virtual void CurrentStaminaChanged(const FOnAttributeChangeData& Data);
+                FDelegateHandle MaxStaminaChangedDelegateHandle;
+                virtual void MaxStaminaChanged(const FOnAttributeChangeData& Data);
+                FDelegateHandle StaminaRegenChangedDelegateHandle;
+                virtual void StaminaRegenChanged(const FOnAttributeChangeData& Data);
+            #pragma endregion
+            #pragma region "MANA"
+                FDelegateHandle CurrentManaChangedDelegateHandle;
+                virtual void CurrentManaChanged(const FOnAttributeChangeData& Data);
+                FDelegateHandle MaxManaChangedDelegateHandle;
+                virtual void MaxManaChanged(const FOnAttributeChangeData& Data);
+                FDelegateHandle ManaRegenChangedDelegateHandle;
+                virtual void ManaRegenChanged(const FOnAttributeChangeData& Data);
+            #pragma endregion
+    #pragma endregion   
 #pragma endregion
     
 };

@@ -8,6 +8,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "gas/DRGameplayAbility.h"
 
+#include "gas/ability/DRAbilitySlot.h"
+
 #pragma region CORE
     ADRBaseCharacter::ADRBaseCharacter()
     {
@@ -17,6 +19,7 @@
         FloatingWidgetComponent->SetRelativeLocation(FVector(0, 0, 120));
         FloatingWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
         FloatingWidgetComponent->SetDrawSize(FVector2D(200, 100));
+
     }
 
 
@@ -172,10 +175,15 @@ void ADRBaseCharacter::InitializeGAS(){
 		ApplyGameplayEffectToSelf(GameplayEffect);
 	}
 
-    // Add Startup Abilities
-    for (TSubclassOf<UDRGameplayAbility> Ability :  StartupAbilities){
-        AddAbilityToSelf(Ability);
+    AbilitySlots.Empty();
+    for( int i = 0; i < 5; i++){
+        UDRAbilitySlot* NewSlot = NewObject<UDRAbilitySlot>(this);
+        if (NewSlot){
+            NewSlot->SetAbilitySystemComponent(AbilitySystemComponent);
+            AbilitySlots.Add(NewSlot);
+        }
     }
+
 
     if (FloatingWidget){
         FloatingWidget->SetAbilitySystemComponent(AbilitySystemComponent);
@@ -221,35 +229,14 @@ void ADRBaseCharacter::InitializeGAS(){
         }
     }
 
-    bool ADRBaseCharacter::AddAbilityToSelf(TSubclassOf<UDRGameplayAbility> NewAbilityClass){
-        if (!AbilitySystemComponent || !NewAbilityClass) return false;
-        UE_LOG(LogTemp, Log, TEXT("[%s] - %s Adding Ability on self"), TEXT(__FUNCTION__), *GetName());
+        #pragma region "Ability"
+            UDRAbilitySlot* ADRBaseCharacter::GetAbilitySlotByIndex(int32 idx) const{
+                if (idx < 0 || idx >= AbilitySlots.Num()) return nullptr;
 
-        
-        FGameplayAbilitySpec Spec(static_cast<TSubclassOf<UGameplayAbility>>(NewAbilityClass), 1, INDEX_NONE, this);
+                return AbilitySlots[idx];
+            }
+        #pragma endregion
 
-        AbilitySystemComponent->GiveAbility(Spec);
-
-        return true;
-    }
-
-    bool ADRBaseCharacter::AddAbilityToTarget(TSubclassOf<UDRGameplayAbility> NewAbilityClass, ADRBaseCharacter* TargetCharacter){
-        if (!AbilitySystemComponent || !TargetCharacter || !NewAbilityClass) return false;
-        UE_LOG(LogTemp, Log, TEXT("[%s] - %s Adding Ability on %s"), TEXT(__FUNCTION__), *GetName(), *TargetCharacter->GetName());
-
-        
-        UAbilitySystemComponent* TargetASC = TargetCharacter->GetAbilitySystemComponent();
-        if (!TargetASC || !HasAuthority())
-            return false;
-
-        UE_LOG(LogTemp, Log, TEXT("[%s] - %s Adding Ability on %s"), TEXT(__FUNCTION__), *GetName(), *TargetCharacter->GetName());
-
-        FGameplayAbilitySpec Spec(static_cast<TSubclassOf<UGameplayAbility>>(NewAbilityClass), 1, INDEX_NONE, this);
-
-        TargetASC->GiveAbility(Spec);
-
-        return true;
-    }
 
     void ADRBaseCharacter::Die() {
         UE_LOG(LogTemp, Error, TEXT("%s Died "), *GetName());
@@ -257,7 +244,11 @@ void ADRBaseCharacter::InitializeGAS(){
 
     #pragma region ATTRIBUTES
         void ADRBaseCharacter::CurrentHealthChanged(const FOnAttributeChangeData& Data){
+            float CurrentHealth = Data.NewValue;
 
+            if (CurrentHealth <= 0.0f){
+                Die();
+            }
         }
 
         

@@ -28,6 +28,7 @@ void UDRSimpleAttributeWidget::SetAbilitySystemComponent(UDRAbilitySystemCompone
     ASC->GetGameplayAttributeValueChangeDelegate(UDRCharacterSet::GetMaxManaAttribute()).AddUObject(this, &UDRSimpleAttributeWidget::OnMaxManaChanged);
     ASC->GetGameplayAttributeValueChangeDelegate(UDRCharacterSet::GetManaRegenAttribute()).AddUObject(this, &UDRSimpleAttributeWidget::OnManaRegenChanged);
 
+    ASC->GetGameplayAttributeValueChangeDelegate(UDRCharacterSet::GetCurrentMoneyAttribute()).AddUObject(this, &UDRSimpleAttributeWidget::OnCurrentMoneyChanged);
     
     // Manually Call to Initialize Values
     FOnAttributeChangeData Data;
@@ -69,6 +70,11 @@ void UDRSimpleAttributeWidget::SetAbilitySystemComponent(UDRAbilitySystemCompone
     Data.Attribute = UDRCharacterSet::GetManaRegenAttribute();
     Data.NewValue = ASC->GetNumericAttribute(UDRCharacterSet::GetManaRegenAttribute());
     OnManaRegenChanged(Data);
+
+    // Money
+    Data.Attribute = UDRCharacterSet::GetCurrentMoneyAttribute();
+    Data.NewValue = ASC->GetNumericAttribute(UDRCharacterSet::GetCurrentMoneyAttribute());
+    OnCurrentMoneyChanged(Data);
 }
 
 
@@ -114,5 +120,12 @@ void UDRSimpleAttributeWidget::SetAbilitySystemComponent(UDRAbilitySystemCompone
         void UDRSimpleAttributeWidget::OnManaRegenChanged(const FOnAttributeChangeData&  Data){
             ManaRegen = Data.NewValue;
         }
+    #pragma endregion
+
+    #pragma region mana
+        void UDRSimpleAttributeWidget::OnCurrentMoneyChanged(const FOnAttributeChangeData&  Data){
+            CurrentMoney = Data.NewValue;
+        }
+
     #pragma endregion
 #pragma endregion

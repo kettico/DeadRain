@@ -82,6 +82,15 @@ protected:
             float CurrentManaPercent = 0.0f;
     #pragma endregion
 
+    #pragma region mana
+        public:
+            void OnCurrentMoneyChanged(const FOnAttributeChangeData&  Data);
+
+        protected:
+            UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Stat")
+            float CurrentMoney = -1.0f;
+    #pragma endregion
+
 #pragma endregion 
 
 };
