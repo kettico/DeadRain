@@ -125,25 +125,25 @@ void UDRCharacterSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 			if (NewHealth <= 0.0f){
 
 				if (SourceController != TargetController){
-						UGameplayEffect* GEBounty = NewObject<UGameplayEffect>(GetTransientPackage(), FName(TEXT("Bounty")));
-						GEBounty->DurationPolicy = EGameplayEffectDurationType::Instant;
+					UGameplayEffect* GEBounty = NewObject<UGameplayEffect>(GetTransientPackage(), FName(TEXT("Bounty")));
+					GEBounty->DurationPolicy = EGameplayEffectDurationType::Instant;
 
-						GEBounty->Modifiers.SetNum(1);
+					GEBounty->Modifiers.SetNum(1);
 
-						/**
+					/*
 						FGameplayModifierInfo& InfoXP = GEBounty->Modifiers[Idx];
 						InfoXP.ModifierMagnitude = FScalableFloat(GetXPBounty());
 						InfoXP.ModifierOp = EGameplayModOp::Additive;
 						InfoXP.Attribute = UDRCharacterSet::GetXPAttribute();
-						*/
+					*/
 
-						FGameplayModifierInfo& InfoGold = GEBounty->Modifiers[0];
-						InfoGold.ModifierMagnitude = FScalableFloat(20.0f);
-						InfoGold.ModifierOp = EGameplayModOp::Additive;
-						InfoGold.Attribute = UDRCharacterSet::GetCurrentMoneyAttribute();
+					FGameplayModifierInfo& InfoGold = GEBounty->Modifiers[0];
+					InfoGold.ModifierMagnitude = FScalableFloat(20.0f);
+					InfoGold.ModifierOp = EGameplayModOp::Additive;
+					InfoGold.Attribute = UDRCharacterSet::GetCurrentMoneyAttribute();
 
-						Source->ApplyGameplayEffectToSelf(GEBounty, 1.0f, Source->MakeEffectContext());
-						UE_LOG(LogTemp, Error, TEXT("Applied Bounty!") );
+					Source->ApplyGameplayEffectToSelf(GEBounty, 1.0f, Source->MakeEffectContext());
+					UE_LOG(LogTemp, Error, TEXT("Applied Bounty!") );
 				}
 			}
 		}

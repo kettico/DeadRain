@@ -24,9 +24,7 @@
         
     }
     
-    bool ADRInteractableActor::IsInteractable()const {
-        return bIsInteractable;
-    }
+
     void ADRInteractableActor::ShowInteractionPrompt(APlayerController* PlayerController, bool Show){
 
     }

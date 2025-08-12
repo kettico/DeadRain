@@ -24,11 +24,11 @@ class DEADRAIN_API ADRInteractableActor : public AActor, public IDRInteractionIn
 
 #pragma region INTERFACE
     public:
-        virtual void InteractPress_Implementation(ADRBaseCharacter* Interactor);
-        virtual void InteractHold_Implementation(ADRBaseCharacter* Interactor);
+        virtual void InteractPress_Implementation(ADRBaseCharacter* Interactor) override;
+        virtual void InteractHold_Implementation(ADRBaseCharacter* Interactor) override;
         
-        virtual bool IsInteractable() const;
-        virtual void ShowInteractionPrompt(APlayerController* PlayerController, bool Show);
+        virtual bool IsInteractable() const override {return bIsInteractable;}
+        virtual void ShowInteractionPrompt(APlayerController* PlayerController, bool Show) override;
     protected:
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
         bool bIsInteractable = true;

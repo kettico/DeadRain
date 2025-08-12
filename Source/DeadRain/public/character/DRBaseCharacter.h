@@ -19,6 +19,7 @@ class UDRAbilitySlot;
 class UDRFloatingWidget;
 class UWidgetComponent;
 
+class UDRItemManagerComponent;
 
 UCLASS()
 class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -58,9 +59,13 @@ class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemIn
         UWidgetComponent* FloatingWidgetComponent;
 #pragma endregion
 
-#pragma region INVENTORY
+#pragma region "Items"
     public:
+        UFUNCTION(BlueprintCallable, Category = "Items")
+            UDRItemManagerComponent* GetItemManager() const { return ItemManager; }
     protected:
+        UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item", meta = (AllowPrivateAccess = "true"))
+            class UDRItemManagerComponent* ItemManager;
 #pragma endregion    
 
 #pragma region WEAPON
@@ -89,8 +94,12 @@ class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemIn
         virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
         virtual void Die();
     protected:
-        UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+        UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
             UDRAbilitySystemComponent* AbilitySystemComponent;
+            
+            
+            UFUNCTION()
+                virtual void BindAttributeDelegates();
     #pragma region "Ability"
         public:
             UFUNCTION(BlueprintCallable)
@@ -150,6 +159,12 @@ class DEADRAIN_API ADRBaseCharacter : public ACharacter, public IAbilitySystemIn
                 virtual void MaxManaChanged(const FOnAttributeChangeData& Data);
                 FDelegateHandle ManaRegenChangedDelegateHandle;
                 virtual void ManaRegenChanged(const FOnAttributeChangeData& Data);
+            #pragma endregion
+
+             
+            #pragma region "MOVEMENT"
+                FDelegateHandle MoveSpeedChangedDelegateHandle;
+                virtual void MoveSpeedChanged(const FOnAttributeChangeData& Data);
             #pragma endregion
     #pragma endregion   
 #pragma endregion

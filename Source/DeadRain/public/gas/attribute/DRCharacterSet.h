@@ -92,6 +92,7 @@ public:
         UPROPERTY(BlueprintReadOnly, Category = "Ability", ReplicatedUsing = OnRep_MoveSpeed)
         FGameplayAttributeData MoveSpeed;
         ATTRIBUTE_ACCESSORS(UDRCharacterSet, MoveSpeed)
+
     #pragma endregion 
 
     
